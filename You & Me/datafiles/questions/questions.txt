@@ -1,0 +1,7 @@
+~0
+What question am I trying\nto solve right now?
+3
+Question 1,bool,0,evi_Item_B
+Question 2,mc,Option A, Option B, Option C,1,evi_Item_C
+Question 3,oe,my answer,evi_Item_A
+~1

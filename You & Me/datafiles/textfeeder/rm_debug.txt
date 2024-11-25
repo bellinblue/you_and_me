@@ -1,0 +1,49 @@
+rm_debug_door_left
+~0_spr_mr_debug
+This is the left door.
+It's red. I am typing random shit because I need to test this textbox thing lolz. Diamonds are forevah. 
+I need to test commas, so here I am. What am I supposed to say? I don't know... My head hurts. 
+~1_spr_mr_debug
+Didn't I already look at this?
+rm_debug_door_leftEND
+rm_debug_door_right
+~0_spr_mr_debug
+This is the right door.
+It's also red.
+~1_spr_mr_debug
+I want to stop looking at red doors.
+rm_debug_door_rightEND
+rm_debug_mp3
+~0_spr_mr_debug
+This is an MP3 player. The earbuds are about to crap out. 
+I wish I could afford some nice ones...
+~1_spr_mr_debug
+Yeah, yeah. MP3 player. We already saw it. 
+rm_debug_mp3END
+rm_debug_comp_book
+~0_spr_mr_debug
+My notes for calculus. They are completely illegible. 
+~1_spr_mr_debug
+I refuse to study right now. 
+rm_debug_comp_bookEND
+rm_debug_folded_shirt
+~0_spr_mr_debug
+It's an old plaid shirt. The buttons are falling off...
+~1_spr_mr_debug
+I don't even remember how old this is.
+I can't even remember if it's another hand-me-down.
+~2_spr_mr_debug
+Stop touching it.
+rm_debug_folded_shirtEND
+rm_debug_phone
+~0_spr_mr_debug
+My phone. I'm almost out of minutes.
+~1_spr_mr_debug
+Yeah, minutes. This game takes place in the middle of the 2000s.
+~2_spr_mr_debug
+I don't have games on my phone.
+~3_spr_mr_debug
+I SAID I don't have games on my phone.
+~4_spr_mr_debug
+I DON'T have games on my phone!
+rm_debug_phoneEND 
