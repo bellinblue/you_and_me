@@ -1,3 +1,4 @@
+draw_rectangle_color(0, 0, room_width, room_height, c_black, c_black, c_black, c_black, 0);
 draw_sprite(window_sprite, -1, window_x, window_y);
 
 if root == 6 || root == 7 { tile_scale = 0.275 - (0.025*root); }

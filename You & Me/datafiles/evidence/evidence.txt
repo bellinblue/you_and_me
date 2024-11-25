@@ -1,5 +1,5 @@
 ~0
-evi_Item_A,Item A
-evi_Item_B,Item B
-evi_Item_C,Item C
+evi_Item_A,Item A,spr_evi_item_a,1
+evi_Item_B,Item B,spr_evi_item_b,1
+evi_Item_C,Item C,spr_evi_item_c,1
 ~1

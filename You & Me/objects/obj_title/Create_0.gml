@@ -14,3 +14,5 @@ buttons = [["Play Debug"],["Settings"],["Leave"]];
 buttons[0][1] = function(){ room_goto(rm_debug); instance_destroy(obj_title) };
 buttons[1][1] = function(){ room_goto(rm_poop); instance_destroy(obj_title) };
 buttons[2][1] = function(){ game_end() };
+
+depth = -1000;

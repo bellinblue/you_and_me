@@ -51,7 +51,6 @@ function file_count_flags(_directory, _item_name) { //Counts number of dialogue 
 }
 
 function file_feed_string(_directory, _flag, _item_name, _is_dialogue) { //Sends file strings to dialogue box object
-	
 		var _file = file_text_open_read(_directory);
 		var _line_count = file_count_lines(_directory);
 		var _c = 0;
@@ -72,24 +71,20 @@ function file_feed_string(_directory, _flag, _item_name, _is_dialogue) { //Sends
 				if string_count(string("~{0}", _flag+1), _res) == 1 { _read = 0; _i = _line_count; } 
 				
 				if _read {
-					_res = string_replace_all(_res, "\\n", "\n")
+					_res = string_replace_all(_res, "\\n", "\n");
 					_send[_c] = _res;
 					_c++;
-				}
+				};
 				
 				if string_count(string("~{0}", _flag), _res) == 1 { 
 					_read = 1; 
-					_res = string_replace_all(_res, "\\n", "\n")
+					_res = string_replace_all(_res, "\\n", "\n");
 					_sprite_string = string_copy(_res, 4, string_length(_res)-5);
 					_sprite = asset_get_index(_sprite_string);
-					
-				}
-				
-			}
-						
-			if string_count(_item_name, _res) == 1 { _block = 1; }
-
-		}
+				};	
+			};			
+			if string_count(_item_name, _res) == 1 { _block = 1 };
+		};
 					
 	_block = 0;
 	file_text_close(_file);	
@@ -128,8 +123,7 @@ function task_list_init() { //Reads task list files and sends to task object
 	return _parts;
 };
 
-function puzzle_word() {
-	var _dir = string("words\\words.txt");
+function file_read_block_day(_dir) {
 	var _file = file_text_open_read(_dir);
 	var _line_count = file_count_lines(_dir);
 	var _block = 0;
@@ -149,12 +143,19 @@ function puzzle_word() {
 		
 	};
 	
+	_block = 0;
+	file_text_close(_file);
+	
+	return _info;
+};
+
+function puzzle_word() { //Reads daily puzzle file, sends to object
+	var _info = file_read_block_day(string("words\\words.txt"))
+	
 	_info[2] = string_split(_info[2], ",");
 	_info[3] = string_split(_info[3], ",");
 	_info[0] = int64(_info[0]);
 	
-	_block = 0;
-	file_text_close(_file);
 	with instance_create_layer(0, 0, "Instances_inv", obj_puzzle_word) { 
 		root = _info[0];
 		theme = _info[1];
@@ -162,59 +163,25 @@ function puzzle_word() {
 		words[1] = _info[3];
 		words_display = array_shuffle(array_concat(words[0], words[1]))
 	}
+	
+	_info = [];
+	
 };
 
 function load_evidence(){
-	
-	var _dir = string("evidence\\evidence.txt");
-	var _file = file_text_open_read(_dir);
-	var _line_count = file_count_lines(_dir);
-	var _block = 0;
-	var _info = [];
-	
-	for (var _i = 0; _i < _line_count; _i++) {
-		var _res = file_text_readln(_file)
-		
-		if string_count(string("~{0}", obj_day.day+1), _res) == 1 { _block = 0; _i = _line_count; }
-							
-		if _block {
-			_res = string_replace_all(_res, "\\n", "\n")
-			array_push(_info, _res);
-		}
-						
-		if string_count(string("~{0}", obj_day.day), _res) == 1 { _block = 1; }
-	};
+	var _info = file_read_block_day(string("evidence\\evidence.txt"))
 	
 	for (var _ii = 0; _ii < array_length(_info); _ii++) {
 		_info[_ii] = string_split(_info[_ii], ",");
 	}
 	
-	_block = 0;
-	file_text_close(_file);
 	return _info;
 	
 };
 
 function puzzle_evidence() {
-	var _dir = string("questions\\questions.txt");
-	var _file = file_text_open_read(_dir);
-	var _line_count = file_count_lines(_dir);
-	var _block = 0;
-	var _info = [];
+	var _info = file_read_block_day(string("questions\\questions.txt"))
 	
-	for (var _i = 0; _i < _line_count; _i++) {
-		var _res = file_text_readln(_file)
-		
-		if string_count(string("~{0}", obj_day.day+1), _res) == 1 { _block = 0; _i = _line_count; }
-							
-		if _block {
-			_res = string_replace_all(_res, "\\n", "\n")
-			array_push(_info, _res);
-		}
-						
-		if string_count(string("~{0}", obj_day.day), _res) == 1 { _block = 1; }
-		
-	};
 	_info[1] = int64(_info[1]);
 	var _temp = [];
 	for (var _ii = 2; _ii < (2+_info[1]); _ii++) {
@@ -222,11 +189,12 @@ function puzzle_evidence() {
 		array_push(_temp, _info[_ii]);
 	}
 	
-	_block = 0;
-	file_text_close(_file);
 	with instance_create_layer(0, 0, "Instances_inv", obj_puzzle_evidence) { 
 		ques_string = _info[0];
 		ques_count = _info[1];
 		questions = _temp;
 	}
+	
+	_info = [];
+	
 };
