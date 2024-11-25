@@ -13,7 +13,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Menus",
-    "path":"folders/Objects/windows/Menus.yy",
+    "path":"folders/Objects/Windows/Menus.yy",
   },
   "parentObjectId":{
     "name":"obj_parent_windows",

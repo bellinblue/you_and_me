@@ -1,3 +1,6 @@
+draw_set_color(c_black); draw_set_alpha(0.75);
+draw_rectangle(0, 0, room_width, room_height, 0);
+draw_set_color(c_white); draw_set_alpha(1);
 draw_sprite(spr_phone_debug, -1, phone_x, phone_y);
 
 var _mx = device_mouse_x_to_gui(0);

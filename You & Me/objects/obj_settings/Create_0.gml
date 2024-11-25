@@ -29,3 +29,5 @@ cont_txt_margin = 30;
 cont_txt_x = wnd_x + cont_txt_margin;
 cont_txt_y = wnd_y + cont_txt_margin;
 cont_txt_buff = 150;
+
+depth = -1000;

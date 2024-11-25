@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Puzzles",
-    "path":"folders/Objects/windows/Puzzles.yy",
+    "path":"folders/Objects/Windows/Puzzles.yy",
   },
   "parentObjectId":{
     "name":"obj_parent_windows",

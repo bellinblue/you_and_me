@@ -17,6 +17,6 @@ tasks = task_list_init();
 tasks_active = [];
 
 access = 1;
-hidden = 0;
+hidden = 1;
 last_clicked = -1;
 

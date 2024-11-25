@@ -10,8 +10,8 @@
   "name":"obj_task",
   "overriddenProperties":[],
   "parent":{
-    "name":"windows",
-    "path":"folders/Objects/windows.yy",
+    "name":"Windows",
+    "path":"folders/Objects/Windows.yy",
   },
   "parentObjectId":null,
   "persistent":true,

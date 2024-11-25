@@ -25,10 +25,16 @@ if menu_access {
 draw_set_font(fnt_debug);
 draw_text_color(30, room_height-100, string(room_get_name(room)), c_white, c_white, c_white, c_white, 0.5);
 
-if keyboard_check_pressed(ord("P")) {
-	puzzle_word();
-};
+if room == rm_debug {
+	
+	if !instance_exists(obj_puzzle_word) && !instance_exists(obj_puzzle_evidence) {
+	
+		if keyboard_check_pressed(ord("W")) {
+			puzzle_word();
+		};
 
-if keyboard_check_pressed(ord("E")) {
-	puzzle_evidence();
+		if keyboard_check_pressed(ord("E")) {
+			puzzle_evidence();
+		};
+	};
 };

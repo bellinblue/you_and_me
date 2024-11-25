@@ -8,8 +8,8 @@
   "name":"obj_day",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Overlord Ass Objects",
+    "path":"folders/Objects/Overlord Ass Objects.yy",
   },
   "parentObjectId":null,
   "persistent":true,

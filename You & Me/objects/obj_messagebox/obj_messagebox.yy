@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Text",
-    "path":"folders/Objects/windows/Text.yy",
+    "path":"folders/Objects/Windows/Text.yy",
   },
   "parentObjectId":{
     "name":"obj_parent_windows",
