@@ -8,6 +8,9 @@ draw_set_halign(fa_center);
 draw_text_transformed(ti_txt_x, ti_txt_y, ques_string, 0.75, 0.75, 0);
 draw_set_halign(fa_left);
 
+var _mx = device_mouse_x_to_gui(0);
+var _my = device_mouse_y_to_gui(0);
+
 #region //Draw test window
 for (var _i = 0; _i < ques_count; _i++) {
 	
@@ -32,8 +35,34 @@ for (var _i = 0; _i < ques_count; _i++) {
 		break;
 		
 		case "oe":
-			draw_line_width(_x+oe_buff_x, _y_ques + oe_buff_y, _x + oe_line_len + oe_buff_x, _y_ques + oe_buff_y, 7);
-
+			var _line_x = _x + oe_buff_x;
+			var _line_y = _y_ques + oe_buff_y;
+			draw_line_width(_line_x, _line_y, _line_x + oe_line_len, _line_y, 7);
+			
+			draw_set_color(c_grey);
+			draw_set_alpha(oe_inp_alpha);
+			draw_rectangle(_line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y, 0);
+			draw_set_color(c_white);
+			draw_set_alpha(0.75);
+			
+			if writing {
+				oe_inp_alpha = 0.25;
+				var _input = string_copy(keyboard_string, 1, 40);
+				draw_text(_line_x, _line_y-oe_inp_hei, _input);
+			} else { oe_inp_alpha = 0.75 };
+			
+			if !point_in_rectangle(_mx, _my, _line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y) {
+				if mouse_check_button_pressed(mb_left) { writing = 0 };
+			};
+			
+			if point_in_rectangle(_mx, _my, _line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y) {
+				oe_inp_alpha = 0.25;
+				if mouse_check_button_pressed(mb_left) {
+					keyboard_string = "";
+					writing = 1;	
+				};
+			};
+			draw_set_alpha(1);
 		break;
 	};
 };
@@ -41,8 +70,19 @@ for (var _i = 0; _i < ques_count; _i++) {
 
 #region //Draw evidence window
 for (var _iii = 0; _iii < array_length(evidence); _iii++) {
-	draw_sprite(evidence[_iii][2])
+	var _spr = asset_get_index(evidence[_iii][2]);
+	var _spr_wid = sprite_get_width(_spr);
+	var _spr_hei = sprite_get_height(_spr);
+	
+	draw_sprite(_spr, 0, evi_x, evi_y + (_iii*evi_buff_y))
+	
+	var _col_x = evi_x-(_spr_wid/2);
+	var _col_y = evi_y - (_spr_hei/2) + (_iii*evi_buff_y);
+	evi_name_x = (wnd_e_x-(wnd_e_wid/2))-(string_width(evidence[_iii][1])/2);
+	
+	draw_set_color(c_white);
+	if point_in_rectangle(_mx, _my, _col_x, _col_y, _col_x + _spr_wid, _col_y + _spr_hei) {
+		draw_text(evi_name_x, evi_name_y, evidence[_iii][1]);
+	};
 };
 #endregion
-
-draw_set_color(c_white);
