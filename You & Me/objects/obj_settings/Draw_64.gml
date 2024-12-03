@@ -17,17 +17,45 @@ for (var _i = 0; _i < array_length(tabs); _i++) {
 	
 	draw_set_alpha(tab_alpha);
 	draw_sprite(tab_sprite, 0, _x, tab_y);
+	draw_set_color(c_black);
 	draw_text(tab_txt_x + (tab_wid*_i), tab_txt_y, tabs[_i][0]);
+	draw_set_color(c_white);
 	draw_set_alpha(1);
 
-	for (var _a = 0; _a < array_length(settings); _a++) {
-		var _arr = settings[_a];
-		for (var _iii = 0; _iii < array_length(_arr); _iii++){
-			if tabs[_a][1] == 1 {
-				draw_text(cont_txt_x, cont_txt_y+(_iii*cont_txt_buff), _arr[_iii][0]);	
-			} else { break };				
-		};
-	};
-
 };
+
+if tabs[0][1] == 1 {
+	for (var _a = 0; _a < array_length(audios); _a++) {
+		draw_text(cont_txt_x, cont_txt_y+(_a*cont_txt_buff), audios[_a][0]);
+		var _cur_count = _a;
+		var _res = audios[_a][2]();
+		audios[_a][1] = _res;
+	};
+};
+
+if tabs[1][1] == 1 {
+	for (var _b = 0; _b < array_length(visuals); _b++) {
+		draw_text(cont_txt_x, cont_txt_y+(_b*cont_txt_buff), visuals[_b][0]);
+		var _res = visuals[_b][2]();
+		if _b == 2 { 
+			visuals[2][1] = _res
+			obj_master.text_speed = _res }
+		else { visuals[_b][1] = _res };
+	};
+};
+
+
+if tabs[2][1] == 1 {
+	for (var _c = 0; _c < array_length(cons); _c++) {
+		draw_text(cont_txt_x, cont_txt_y+(_c*cont_txt_buff), cons[_c][0]);
+	};
+};
+
+if tabs[3][1] == 1 {
+	for (var _d = 0; _d < array_length(system); _d++) {
+		draw_text(cont_txt_x, cont_txt_y+(_d*cont_txt_buff), system[_d][0]);
+	};
+};
+	
+	
 

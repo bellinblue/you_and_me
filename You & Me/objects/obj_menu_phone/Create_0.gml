@@ -19,7 +19,7 @@ app_width = sprite_get_width(spr_app_gallery);
 app_height = sprite_get_height(spr_app_gallery)
 app_alpha = 1;
 
-depth = -1000;
+depth = -1200;
 
 
 

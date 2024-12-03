@@ -90,21 +90,21 @@ function file_feed_string(_directory, _flag, _item_name, _is_dialogue) { //Sends
 	file_text_close(_file);	
 	
 	if _is_dialogue {
-		with instance_create_layer(0, 0, "Instances", obj_dialoguebox) {
+		with instance_create_layer(0, 0, "Instances_inv", obj_dialoguebox) {
 			sprite_img = _sprite;
 			for (var _i = 0; _i < array_length(_send); _i++) {
 				text[_i] = _send[_i];
 			};
 		};
 	} else {
-		with instance_create_layer(0, 0, "Instances", obj_messagebox) {
+		with instance_create_layer(0, 0, "Instances_inv", obj_messagebox) {
 			sprite_img = _sprite;
 			contact = "elijah";
 			for (var _i = 0; _i < array_length(_send); _i++) {
 				text[_i] = _send[_i];
 			};
 		};
-		if !instance_exists(obj_messagehistory){ instance_create_layer(-1, -1, "Instances", obj_messagehistory) };
+		if !instance_exists(obj_messagehistory){ instance_create_layer(-1, -1, "Instances_inv", obj_messagehistory) };
 	};
 };
 
@@ -193,6 +193,9 @@ function puzzle_evidence() {
 		ques_string = _info[0];
 		ques_count = _info[1];
 		questions = _temp;
+		for (var _i = 0; _i < ques_count; _i++) {
+			answers[_i] = undefined;
+		};
 	}
 	
 	_info = [];

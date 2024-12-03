@@ -2,9 +2,9 @@
   "$GMSprite":"",
   "%Name":"spr_settings_audio_notch",
   "bboxMode":0,
-  "bbox_bottom":14,
+  "bbox_bottom":29,
   "bbox_left":0,
-  "bbox_right":9,
+  "bbox_right":19,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -16,7 +16,7 @@
   ],
   "gridX":0,
   "gridY":0,
-  "height":15,
+  "height":30,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"abdbebc3-63ac-4d31-9d0f-e47fe36d8bc7","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"abdbebc3-63ac-4d31-9d0f-e47fe36d8bc7","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
@@ -86,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":10,
+  "width":20,
 }

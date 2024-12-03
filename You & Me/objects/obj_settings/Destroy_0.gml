@@ -1,6 +1,5 @@
 tabs = [];
 audios = [];
 visuals = [];
-game_cons = [];
+cons = [];
 system = [];
-settings = [];

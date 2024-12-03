@@ -85,7 +85,7 @@ if _next {
 		if page < page_count-1 {
 			page++;
 			draw_char = 0;
-		} else { obj_master.menu_access = 1;  obj_collision.access = 1; instance_destroy() };
+		} else { instance_destroy() };
 	} else { draw_char = text_len[page]-2 };
 };
 

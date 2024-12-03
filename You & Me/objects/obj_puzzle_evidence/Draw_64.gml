@@ -22,15 +22,71 @@ for (var _i = 0; _i < ques_count; _i++) {
 	
 	switch questions[_i][1] {
 		case "bool":
-			draw_rectangle(_x + tf_box_buff_x, _y_box, _x + tf_box_buff_x + tf_box_size, _y_box + tf_box_size, 1);
-			draw_rectangle(_x + (2*tf_box_buff_x), _y_box, _x + (2*tf_box_buff_x) + tf_box_size, _y_box + tf_box_size, 1);
+			var _rec = [[_x + tf_box_buff_x, _y_box, _x + tf_box_buff_x + tf_box_size, _y_box + tf_box_size],
+				[_x + (2*tf_box_buff_x), _y_box, _x + (2*tf_box_buff_x) + tf_box_size, _y_box + tf_box_size]];
+			
+			var _buff = 20;
+			if point_in_rectangle(_mx, _my, _rec[0][0]-_buff, _rec[0][1]-_buff, _rec[0][2]+_buff, _rec[0][3]+_buff) {
+				tf_attr[0] = 0.5;
+				if mouse_check_button_pressed(mb_left) {
+					if tf_attr[2] == 0 {
+						tf_attr[2] = 1;
+						tf_attr[3] = 0;
+						answers[_i] = 1;	
+					} else {
+						tf_attr[2] = 0;
+						answers[_i] = undefined;
+					};
+				};
+			} else { tf_attr[0] = 1 }; 
+			
+			if point_in_rectangle(_mx, _my, _rec[1][0]-_buff, _rec[1][1]-_buff, _rec[1][2]+_buff, _rec[1][3]+_buff) {
+				tf_attr[1] = 0.5;
+				if mouse_check_button_pressed(mb_left) {
+					if tf_attr[3] == 0 {
+						tf_attr[2] = 0;
+						tf_attr[3] = 1;
+						answers[_i] = 0;
+					} else {
+						tf_attr[3] = 0;
+						answers[_i] = undefined;
+					};
+				};
+			} else { tf_attr[1] = 1 }; 
+			
+			draw_set_alpha(tf_attr[0]); draw_set_color(c_grey);
+			draw_rectangle(_rec[0][0], _rec[0][1], _rec[0][2], _rec[0][3], 0);
+			draw_set_alpha(tf_attr[1]);
+			draw_rectangle(_rec[1][0], _rec[1][1], _rec[1][2], _rec[1][3], 0);
+			draw_set_alpha(1); draw_set_color(c_black);
 			draw_text(_x + tf_box_buff_x + tf_box_size + 20, _y_box - tf_box_size, "True");
 			draw_text(_x + (2*tf_box_buff_x) + tf_box_size + 20, _y_box - tf_box_size, "False");
+			
+			if tf_attr[2] == 1 { draw_sprite(spr_puzzle_evidence_checkmark, 0, _rec[0][0], _rec[0][1]) };
+			if tf_attr[3] == 1 { draw_sprite(spr_puzzle_evidence_checkmark, 0, _rec[1][0], _rec[1][1]) };
+			
 		break;
 		
 		case "mc":
 			for (var _ii = 0; _ii < 3; _ii++) {
-				draw_text(_x + (_ii*mc_buff_x), _y_ques + mc_buff_y, string("{0}:", _ii+1));
+				
+				var _mc_x = _x + (_ii*mc_buff_x);
+				var _mc_y = _y_ques + mc_buff_y;
+				var _string = string("{0}: {1}", _ii+1, questions[_i][2+_ii]);
+				
+				if point_in_rectangle(_mx, _my, _mc_x, _mc_y, _mc_x+string_width(_string), _mc_y+string_height(_string)) {
+					mc_alpha = 0.25;
+					if mouse_check_button_pressed(mb_left) {
+						if answers[_i] == _ii { answers[_i] = undefined } else { answers[_i] = _ii };
+					};
+				} else { mc_alpha = 1 };
+				
+				draw_set_alpha(mc_alpha);
+				draw_text(_mc_x, _mc_y, _string);
+				draw_set_alpha(1);
+				if answers[_i] == _ii {
+					draw_sprite(spr_puzzle_evidence_circle, 0, _mc_x, _mc_y+string_height(_string)/4);
+				};
 			};
 		break;
 		
@@ -42,14 +98,16 @@ for (var _i = 0; _i < ques_count; _i++) {
 			draw_set_color(c_grey);
 			draw_set_alpha(oe_inp_alpha);
 			draw_rectangle(_line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y, 0);
-			draw_set_color(c_white);
+			draw_set_color(c_black);
 			draw_set_alpha(0.75);
 			
 			if writing {
 				oe_inp_alpha = 0.25;
-				var _input = string_copy(keyboard_string, 1, 40);
-				draw_text(_line_x, _line_y-oe_inp_hei, _input);
-			} else { oe_inp_alpha = 0.75 };
+				writing_string = string_copy(keyboard_string, 1, 40);
+			} else { 
+				oe_inp_alpha = 0.75;
+			};
+			draw_text(_line_x, _line_y-oe_inp_hei, writing_string);
 			
 			if !point_in_rectangle(_mx, _my, _line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y) {
 				if mouse_check_button_pressed(mb_left) { writing = 0 };
@@ -58,15 +116,19 @@ for (var _i = 0; _i < ques_count; _i++) {
 			if point_in_rectangle(_mx, _my, _line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y) {
 				oe_inp_alpha = 0.25;
 				if mouse_check_button_pressed(mb_left) {
-					keyboard_string = "";
+					keyboard_string = writing_string;
 					writing = 1;	
 				};
 			};
+			draw_set_color(c_white);
 			draw_set_alpha(1);
+			answers[_i] = writing_string;
 		break;
 	};
 };
 #endregion
+
+show_debug_message(answers)
 
 #region //Draw evidence window
 for (var _iii = 0; _iii < array_length(evidence); _iii++) {
@@ -86,3 +148,5 @@ for (var _iii = 0; _iii < array_length(evidence); _iii++) {
 	};
 };
 #endregion
+
+

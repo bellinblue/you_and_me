@@ -12,7 +12,7 @@ text_y = button_y + text_margin;
 
 buttons = [["Play Debug"],["Settings"],["Leave"]];
 buttons[0][1] = function(){ room_goto(rm_debug); instance_destroy(obj_title) };
-buttons[1][1] = function(){ room_goto(rm_poop); instance_destroy(obj_title) };
+buttons[1][1] = function(){ instance_create_layer(-1,-1,"Instances_inv",obj_settings) };
 buttons[2][1] = function(){ game_end() };
 
 depth = -1000;

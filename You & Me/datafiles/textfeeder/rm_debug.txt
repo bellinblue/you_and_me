@@ -47,3 +47,11 @@ I SAID I don't have games on my phone.
 ~4_spr_mr_debug
 I DON'T have games on my phone!
 rm_debug_phoneEND 
+rm_debug_checker
+~0_spr_mr_debug
+This dialogue is for testing purposes.
+~1_spr_mr_debug
+Blah blah blah.
+~2_spr_mr_debug
+Here I want to check the text speed through the settings. Blah blah blah... Meow meow meow... I have to pee so bad bruh.
+rm_debug_checkerEND

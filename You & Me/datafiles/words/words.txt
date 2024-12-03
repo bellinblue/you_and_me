@@ -1,8 +1,8 @@
 ~0
 4
-shithead
-pee,piss,shit,argh,fart,hungry,headhurt,peepee
-Lantern,Whisper,Orbit,Velvet,Cascade,Ember,Fragment,Serene
+Fruits
+apple,banana,tomato,plum,orange,coconut,avocado,kiwi
+kale,corn,carrot,broccoli,cabbage,beans,celery,arugula
 ~1
 4
 ihavetopiss

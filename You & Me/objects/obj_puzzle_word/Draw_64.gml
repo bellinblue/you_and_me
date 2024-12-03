@@ -49,23 +49,29 @@ for (var _r = 0; _r < root; _r++) {
 			draw_sprite_ext(tile_sprite, -1, _x, _y, tile_scale, tile_scale, 0, c_white, tile_alpha);
 		}
 		var _col = c_black;
-		draw_text_transformed_color(_x, _y, words_display[_i], 0.75, 0.75, 0, _col, _col, _col, _col, 1);
-		
+		var _scale = 0.75;
+		var _tile_txt_x = (_x + (tile_width/2 - (string_width(words_display[_i])*_scale)/2));
+		var _tile_txt_y = _y + (tile_height - (string_height(words_display[_i])*_scale))/2;
+		draw_text_transformed_color(_tile_txt_x, _tile_txt_y, words_display[_i], _scale, _scale, 0, _col, _col, _col, _col, 1);
+	
 		_i++;
 	};
 };
 
+draw_text_transformed(1470, 100, "Select similar words", 0.75, 0.75, 0);
+
 if array_length(compare) >= root*2 {
 	is_clickable = 0;
-	draw_text(100, 100, "Hit enter to check");
+	var _txt_x = 60;
+	draw_text_transformed(_txt_x, 100, "Hit enter to check", 0.75, 0.75, 0);
 	if keyboard_check_pressed(vk_enter) {
 		if array_contains_ext(compare, words[0], 1) { res = 1 } else { res = 0; }
 	};
 
-	if res == 0 { draw_text(100, 300, "Nope") } 
+	if res == 0 { draw_text_transformed(_txt_x, 300, "These aren't\nthe correct answers!", 0.75, 0.75, 0) } 
 	else if res == 1 { 
-		draw_text(100, 300, "These are the\ncorrect answers") 
-		draw_text(100, 500, string("The theme\nwas: {0}", theme))
+		draw_text_transformed(_txt_x, 300, "These are the\ncorrect answers", 0.75, 0.75, 0) 
+		draw_text_transformed(_txt_x, 500, string("The theme\nwas: {0}", theme), 0.75, 0.75, 0)
 	};
 
 } else { is_clickable = 1; res = -1 };

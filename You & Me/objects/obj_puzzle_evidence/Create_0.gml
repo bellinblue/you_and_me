@@ -1,6 +1,7 @@
 ques_string = "";
 ques_count = 0;
 questions = [];
+answers = [];
 evidence = load_evidence();
 
 #region //Sprite info for test and evidence windows
@@ -28,9 +29,11 @@ ques_txt_buff = 200;
 tf_box_buff_x = 200;
 tf_box_buff_y = font_get_size(obj_master.game_font) + 70;
 tf_box_size = 30;
+tf_attr = [1,1,0,0];
 
-mc_buff_x = 300;
+mc_buff_x = 325;
 mc_buff_y = 100;
+mc_alpha = 1;
 
 oe_line_len = wnd_t_wid - (wnd_t_wid/4);
 oe_inp_hei = 70;
@@ -38,6 +41,8 @@ oe_inp_alpha = 0.75;
 oe_buff_x = 50;
 oe_buff_y = 200;
 writing = 0;
+writing_string = "";
+save_string = "";
 #endregion
 
 evi_x = wnd_e_x - wnd_e_wid/2;
