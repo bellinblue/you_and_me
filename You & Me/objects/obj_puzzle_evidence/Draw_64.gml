@@ -125,10 +125,18 @@ for (var _i = 0; _i < ques_count; _i++) {
 			answers[_i] = writing_string;
 		break;
 	};
+	
+	var _spr_pap = spr_puzzle_evidence_paperclip;
+	var _spr_wid = sprite_get_width(_spr_pap); 
+	var _spr_hei = sprite_get_height(_spr_pap)
+	var _spr_buff = 500;
+	var _spr_x = _x + _spr_buff;
+	var _spr_y = _y_ques
+	
+	draw_sprite(_spr_pap, 0, _spr_x, _spr_y);
+	
 };
 #endregion
-
-show_debug_message(answers)
 
 #region //Draw evidence window
 for (var _iii = 0; _iii < array_length(evidence); _iii++) {

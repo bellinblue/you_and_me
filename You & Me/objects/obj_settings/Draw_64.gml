@@ -27,7 +27,7 @@ for (var _i = 0; _i < array_length(tabs); _i++) {
 if tabs[0][1] == 1 {
 	for (var _a = 0; _a < array_length(audios); _a++) {
 		draw_text(cont_txt_x, cont_txt_y+(_a*cont_txt_buff), audios[_a][0]);
-		var _cur_count = _a;
+		var _cur = _a;
 		var _res = audios[_a][2]();
 		audios[_a][1] = _res;
 	};
@@ -47,13 +47,15 @@ if tabs[1][1] == 1 {
 
 if tabs[2][1] == 1 {
 	for (var _c = 0; _c < array_length(cons); _c++) {
-		draw_text(cont_txt_x, cont_txt_y+(_c*cont_txt_buff), cons[_c][0]);
+		if _is_interactable { draw_text(cont_txt_x, cont_txt_y+(_c*cont_txt_buff), cons[_c][0]) };
+		cons[_c][1]();
 	};
 };
 
 if tabs[3][1] == 1 {
 	for (var _d = 0; _d < array_length(system); _d++) {
-		draw_text(cont_txt_x, cont_txt_y+(_d*cont_txt_buff), system[_d][0]);
+		if _is_interactable { draw_text(cont_txt_x, cont_txt_y+(_d*cont_txt_buff), system[_d][0]) };
+		system[_d][1]();
 	};
 };
 	
