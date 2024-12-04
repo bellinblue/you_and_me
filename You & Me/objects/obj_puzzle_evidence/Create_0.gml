@@ -3,6 +3,7 @@ ques_count = 0;
 questions = [];
 answers = [];
 evidence = load_evidence();
+_is_selecting = -1;
 
 #region //Sprite info for test and evidence windows
 wnd_t_spr = spr_puzzle_evidence_test_back;
@@ -50,5 +51,9 @@ evi_y = 200;
 evi_buff_y = 500-evi_y;
 evi_name_x = wnd_e_x-(wnd_e_wid/2);
 evi_name_y = room_height-125;
+evi_alpha = 1;
+evi_dir = 1;
+evi_cur = 0;
+ans_cur = 0;
 
 depth = -999;

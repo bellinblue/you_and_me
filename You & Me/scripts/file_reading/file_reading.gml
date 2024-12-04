@@ -193,8 +193,10 @@ function puzzle_evidence() {
 		ques_string = _info[0];
 		ques_count = _info[1];
 		questions = _temp;
+		print(questions)
 		for (var _i = 0; _i < ques_count; _i++) {
-			answers[_i] = undefined;
+			answers[_i][0] = undefined;
+			answers[_i][1] = undefined;
 		};
 	}
 	
