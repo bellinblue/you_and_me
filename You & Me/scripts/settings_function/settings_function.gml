@@ -16,7 +16,6 @@ function draw_audio_slider(_input, _count){
 	var _my = device_mouse_y_to_gui(0);
 	var _res = _input;
 	
-	
 	var _y = _bar_y + (_count*obj_settings.cont_txt_buff);
 	var _n_y = _notch_y + (_count*obj_settings.cont_txt_buff);
 	

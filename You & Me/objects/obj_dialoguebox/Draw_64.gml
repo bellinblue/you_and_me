@@ -90,7 +90,7 @@ if _next {
 	} else { draw_char = text_len[page]-2 };
 };
 
-draw_sprite(sprite_img, -1, sprite_x, sprite_y);
+if sprite_img != -1 { draw_sprite(sprite_img, -1, sprite_x, sprite_y) };
 
 window_index += window_anim_speed;
 draw_sprite(window_sprite, window_index, _window_x, _window_y);

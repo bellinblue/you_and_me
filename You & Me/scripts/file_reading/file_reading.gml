@@ -189,11 +189,19 @@ function puzzle_evidence() {
 		array_push(_temp, _info[_ii]);
 	}
 	
+	
 	with instance_create_layer(0, 0, "Instances_inv", obj_puzzle_evidence) { 
 		ques_string = _info[0];
 		ques_count = _info[1];
 		questions = _temp;
-		print(questions)
+	
+		for (var _iii = 0; _iii < array_length(questions); _iii++) {
+			
+			var _fin = array_get_index(questions[_iii], array_last(questions[_iii]));
+			var _repl = string_replace(questions[_iii][_fin], "\r\n", "");	
+			questions[_iii][_fin] = _repl;
+		};
+	
 		for (var _i = 0; _i < ques_count; _i++) {
 			answers[_i][0] = undefined;
 			answers[_i][1] = undefined;
@@ -201,5 +209,26 @@ function puzzle_evidence() {
 	}
 	
 	_info = [];
+	
+};
+
+function load_gallery(){
+	var _file = file_text_open_read(string("gallery\\gallery.txt"));
+	var _line_count = file_count_lines(string("gallery\\gallery.txt"));
+	var _info = [];
+	
+	for (var _i = 0; _i < _line_count; _i++) {
+		var _res = file_text_readln(_file)
+		_res = string_replace_all(_res, "\\n", "\n")
+		array_push(_info, _res);	
+	};
+	
+	for (var _ii = 0; _ii < array_length(_info); _ii++) {
+		_info[_ii] = string_split(_info[_ii], ",");
+		_info[_ii][3] = int64(_info[_ii][3]);
+	}
+	
+	file_text_close(_file);
+	return _info;
 	
 };

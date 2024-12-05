@@ -11,6 +11,36 @@ draw_set_halign(fa_left);
 var _mx = device_mouse_x_to_gui(0);
 var _my = device_mouse_y_to_gui(0);
 
+var _count = 0;
+for (var _p = 0; _p < array_length(answers); _p++) {
+	if array_contains(answers[_p], undefined) || array_contains(answers[_p], "") { _count++ };
+};
+
+if _count < 1 {
+	if obj_master.menu_access && !_evi_check {
+		if keyboard_check_pressed(vk_enter) {
+			for (var _comp = 0; _comp < array_length(answers); _comp++) {
+				if questions[_comp][1] == "mc" {
+					print(answers[_comp][0], " = ", questions[_comp][5], "\n", answers[_comp][1], " = ", questions[_comp][6], "\n");
+					if answers[_comp][0] != questions[_comp][5]	{ _check = 1; break };
+					if answers[_comp][1] != questions[_comp][6] { _check = 1; break };
+				} else {
+					print(answers[_comp][0], " = ", questions[_comp][2], "\n", answers[_comp][1], " = ", questions[_comp][3], "\n");
+					if answers[_comp][0] != questions[_comp][2]	{ _check = 1; break };
+					if answers[_comp][1] != questions[_comp][3] { _check = 1; break };
+				};
+			};
+			if _check != 1 { _check = 0 };
+		};
+	};
+	
+	if _check > 0 { _display_string = "Incorrect." } 
+	else if _check == 0 { _display_string = "Correct!" }
+	else { _display_string = "Hit enter to check answer." };
+
+	draw_text(100, 975, _display_string);	
+} else { _check = -1 };
+
 #region //Draw evidence window
 for (var _iii = 0; _iii < array_length(evidence); _iii++) {
 	var _spr = asset_get_index(evidence[_iii][2]);
@@ -25,28 +55,39 @@ for (var _iii = 0; _iii < array_length(evidence); _iii++) {
 	evi_name_x = (wnd_e_x-(wnd_e_wid/2))-(string_width(evidence[_iii][1])/2);
 	
 	draw_set_color(c_white);
-	if point_in_rectangle(_mx, _my, _col_x, _col_y, _col_x + _spr_widt, _col_y + _spr_heig) 
-		{
-		if _is_selecting > -1 {
-			draw_text(evi_name_x, evi_name_y, evidence[_iii][1]);
-			if mouse_check_button_pressed(mb_left) {
-				evi_cur = _iii;
-				if answers[_is_selecting][1] == evidence[evi_cur][0] {
-					answers[_is_selecting][1] = undefined;
-				} 
-				else { 
-					answers[_is_selecting][1] = evidence[evi_cur][0]
-					for (var _a = 0; _a < array_length(answers); _a++) {
-						if answers[_is_selecting][1] == answers[_a][1] && _a != _is_selecting {
-							answers[_a][1] = undefined;
+	
+	if obj_master.menu_access && !_evi_check {
+		if point_in_rectangle(_mx, _my, _col_x, _col_y, _col_x + _spr_widt, _col_y + _spr_heig) 
+			{
+			if _is_selecting > -1 {
+				draw_text(evi_name_x, evi_name_y, evidence[_iii][1]);
+				if mouse_check_button_pressed(mb_left) {
+					evi_cur = _iii;
+					if answers[_is_selecting][1] == evidence[evi_cur][0] {
+						answers[_is_selecting][1] = undefined;
+					} 
+					else { 
+						answers[_is_selecting][1] = evidence[evi_cur][0]
+						print(evidence[evi_cur][0])
+						for (var _a = 0; _a < array_length(answers); _a++) {
+							if answers[_is_selecting][1] == answers[_a][1] && _a != _is_selecting {
+								answers[_a][1] = undefined;
+							};
 						};
 					};
+					 evi_alpha = 1; 
+					_is_selecting = -1;
 				};
-				 evi_alpha = 1; 
-				_is_selecting = -1;
+			} else {
+				if mouse_check_button_pressed(mb_left) {
+					evi_cur = _iii;
+					_evi_check = 1;
+				};
 			};
 		};
+	
 	};
+	
 };
 #endregion
 
@@ -78,16 +119,19 @@ for (var _i = 0; _i < ques_count; _i++) {
 
 	draw_sprite(_spr_pap, 0, _spr_x, _spr_y);
 	
-	if point_in_rectangle(_mx, _my, _spr_x - _check_buff, _spr_y - _check_buff, 
-	_spr_x + _spr_wid + _check_buff, _spr_y+_spr_hei + _check_buff) {
-		var _str = string("Select or stop selecting\nevidence for answer {0}", _i+1);
-		draw_set_color(c_white); draw_set_alpha(0.5);
-		draw_rectangle(_mx+50, _my-100, _mx+50+string_width(_str), _my-100+string_height(_str), 0)
-		draw_set_color(c_black); draw_set_alpha(1);
-		draw_text(_mx + 50, _my - 100, _str);
+	if obj_master.menu_access && !_evi_check {
+	
+		if point_in_rectangle(_mx, _my, _spr_x - _check_buff, _spr_y - _check_buff, 
+		_spr_x + _spr_wid + _check_buff, _spr_y+_spr_hei + _check_buff) {
+			var _str = string("Select or stop selecting\nevidence for answer {0}", _i+1);
+			draw_set_color(c_white); draw_set_alpha(0.5);
+			draw_rectangle(_mx+50, _my-100, _mx+50+string_width(_str), _my-100+string_height(_str), 0)
+			draw_set_color(c_black); draw_set_alpha(1);
+			draw_text(_mx + 50, _my - 100, _str);
 		
-		if mouse_check_button_pressed(mb_left) { 
-			if _is_selecting > -1 { _is_selecting = -1 } else { _is_selecting = _i };
+			if mouse_check_button_pressed(mb_left) { 
+				if _is_selecting > -1 { _is_selecting = -1 } else { _is_selecting = _i };
+			};
 		};
 	};
 	
@@ -100,33 +144,35 @@ for (var _i = 0; _i < ques_count; _i++) {
 				[_x + (2*tf_box_buff_x), _y_box, _x + (2*tf_box_buff_x) + tf_box_size, _y_box + tf_box_size]];
 			
 			var _buff = 20;
-			if point_in_rectangle(_mx, _my, _rec[0][0]-_buff, _rec[0][1]-_buff, _rec[0][2]+_buff, _rec[0][3]+_buff) {
-				tf_attr[0] = 0.5;
-				if mouse_check_button_pressed(mb_left) {
-					if tf_attr[2] == 0 {
-						tf_attr[2] = 1;
-						tf_attr[3] = 0;
-						answers[_i][0] = 1;	
-					} else {
-						tf_attr[2] = 0;
-						answers[_i][0] = undefined;
+			if obj_master.menu_access && !_evi_check {
+				if point_in_rectangle(_mx, _my, _rec[0][0]-_buff, _rec[0][1]-_buff, _rec[0][2]+_buff, _rec[0][3]+_buff) {
+					tf_attr[0] = 0.5;
+					if mouse_check_button_pressed(mb_left) {
+						if tf_attr[2] == 0 {
+							tf_attr[2] = 1;
+							tf_attr[3] = 0;
+							answers[_i][0] = 1;	
+						} else {
+							tf_attr[2] = 0;
+							answers[_i][0] = undefined;
+						};
 					};
-				};
-			} else { tf_attr[0] = 1 }; 
+				} else { tf_attr[0] = 1 }; 
 			
-			if point_in_rectangle(_mx, _my, _rec[1][0]-_buff, _rec[1][1]-_buff, _rec[1][2]+_buff, _rec[1][3]+_buff) {
-				tf_attr[1] = 0.5;
-				if mouse_check_button_pressed(mb_left) {
-					if tf_attr[3] == 0 {
-						tf_attr[2] = 0;
-						tf_attr[3] = 1;
-						answers[_i][0] = 0;
-					} else {
-						tf_attr[3] = 0;
-						answers[_i][0] = undefined;
+				if point_in_rectangle(_mx, _my, _rec[1][0]-_buff, _rec[1][1]-_buff, _rec[1][2]+_buff, _rec[1][3]+_buff) {
+					tf_attr[1] = 0.5;
+					if mouse_check_button_pressed(mb_left) {
+						if tf_attr[3] == 0 {
+							tf_attr[2] = 0;
+							tf_attr[3] = 1;
+							answers[_i][0] = 0;
+						} else {
+							tf_attr[3] = 0;
+							answers[_i][0] = undefined;
+						};
 					};
-				};
-			} else { tf_attr[1] = 1 }; 
+				} else { tf_attr[1] = 1 }; 
+			};
 			
 			draw_set_alpha(tf_attr[0]); draw_set_color(c_grey);
 			draw_rectangle(_rec[0][0], _rec[0][1], _rec[0][2], _rec[0][3], 0);
@@ -148,12 +194,14 @@ for (var _i = 0; _i < ques_count; _i++) {
 				var _mc_y = _y_ques + mc_buff_y;
 				var _string = string("{0}: {1}", _ii+1, questions[_i][2+_ii]);
 				
-				if point_in_rectangle(_mx, _my, _mc_x, _mc_y, _mc_x+string_width(_string), _mc_y+string_height(_string)) {
-					mc_alpha = 0.25;
-					if mouse_check_button_pressed(mb_left) {
-						if answers[_i][0] == _ii { answers[_i][0] = undefined } else { answers[_i][0] = _ii };
-					};
-				} else { mc_alpha = 1 };
+				if obj_master.menu_access && !_evi_check {
+					if point_in_rectangle(_mx, _my, _mc_x, _mc_y, _mc_x+string_width(_string), _mc_y+string_height(_string)) {
+						mc_alpha = 0.25;
+						if mouse_check_button_pressed(mb_left) {
+							if answers[_i][0] == _ii { answers[_i][0] = undefined } else { answers[_i][0] = _ii };
+						};
+					} else { mc_alpha = 1 };
+				};
 				
 				draw_set_alpha(mc_alpha);
 				draw_text(_mc_x, _mc_y, _string);
@@ -183,17 +231,21 @@ for (var _i = 0; _i < ques_count; _i++) {
 			};
 			draw_text(_line_x, _line_y-oe_inp_hei, writing_string);
 			
-			if !point_in_rectangle(_mx, _my, _line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y) {
-				if mouse_check_button_pressed(mb_left) { writing = 0 };
+			if obj_master.menu_access && !_evi_check {
+				if !point_in_rectangle(_mx, _my, _line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y) {
+					if mouse_check_button_pressed(mb_left) { writing = 0 };
+				};
+			
+				if point_in_rectangle(_mx, _my, _line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y) {
+					oe_inp_alpha = 0.25;
+					if mouse_check_button_pressed(mb_left) {
+						keyboard_string = writing_string;
+						writing = 1;	
+					};
+				};
+			
 			};
 			
-			if point_in_rectangle(_mx, _my, _line_x, _line_y-oe_inp_hei, _line_x + oe_line_len, _line_y) {
-				oe_inp_alpha = 0.25;
-				if mouse_check_button_pressed(mb_left) {
-					keyboard_string = writing_string;
-					writing = 1;	
-				};
-			};
 			draw_set_color(c_white);
 			draw_set_alpha(1);
 			answers[_i][0] = writing_string;
@@ -201,6 +253,15 @@ for (var _i = 0; _i < ques_count; _i++) {
 	};
 	
 };
+
+if _evi_check {
+	draw_set_color(c_black); draw_set_alpha(0.75);
+	draw_rectangle(0, 0, room_width, room_height, 0);
+	draw_set_color(c_white); draw_set_alpha(1);
+	draw_sprite_ext(asset_get_index(evidence[evi_cur][2]), 0, room_width/2, room_height/2, 3, 3, 0, c_white, 1);
+	if keyboard_check_pressed(vk_escape) { _evi_check = 0 };
+};
+
 #endregion
 
 

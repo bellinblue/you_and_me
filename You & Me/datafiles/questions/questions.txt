@@ -1,7 +1,7 @@
 ~0
-What question am I trying\nto solve right now?
+Select the correct answer, and click\nthe paperclip to select evidence.
 3
-Question 1,bool,0,evi_Item_B
-Question 2,mc,Option A,Option B,Option C,1,evi_Item_C
-Question 3,oe,my answer,evi_Item_A
+Dogs are mammals.,bool,1,evi_photo_2
+Which is poisonous to dogs?,mc,Banana,Garlic,Grass,1,evi_photo_3
+What wags on a dog?,oe,tail,evi_photo_1
 ~1

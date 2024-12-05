@@ -10,7 +10,7 @@ window_anim_speed = sprite_get_number(window_sprite)/game_get_speed(gamespeed_fp
 //Sprite
 sprite_x = 1300;
 sprite_y = 405;
-sprite_img = noone;
+sprite_img = -1;
 
 //Text
 text_speed = obj_master.text_speed;

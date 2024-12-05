@@ -26,8 +26,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"phone",
-    "path":"folders/Sprites/debug/phone.yy",
+    "name":"gallery",
+    "path":"folders/Sprites/debug/phone/gallery.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

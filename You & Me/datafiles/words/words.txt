@@ -2,7 +2,7 @@
 4
 Fruits
 apple,banana,tomato,plum,orange,coconut,avocado,kiwi
-kale,corn,carrot,broccoli,cabbage,beans,celery,arugula
+kitchen,knife,grass,doorway,fan,jacket,lacing,hands
 ~1
 4
 ihavetopiss

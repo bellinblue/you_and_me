@@ -21,7 +21,7 @@ if obj_master.coll_access {
 
 		if mouse_check_button_pressed(mb_left) {
 			obj_master.coll_access = 0;
-			obj_task.last_clicked = item_name;
+			if instance_exists(obj_task) { obj_task.last_clicked = item_name };
 		
 			switch result {
 				case 0:
@@ -44,7 +44,7 @@ if obj_master.coll_access {
 				break;
 				case 2:
 					room_goto(room_target);
-					obj_task.last_clicked = item_name;
+					if instance_exists(obj_task) { obj_task.last_clicked = item_name };
 					obj_master.coll_access = 1;
 				break;
 			}

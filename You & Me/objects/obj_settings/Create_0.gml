@@ -40,11 +40,11 @@ audios[3][2] = function(){ input_aud = draw_audio_slider(audios[3][1], 3); retur
 timer = 0;
 toggle_spr = spr_settings_toggle_on;
 visuals = [["Cutscene Subtitles", 1], ["Fullscreen Toggle", 0], 
-["Text Speed", obj_master.text_speed], ["Nudity", 1]];
+["Text Speed", obj_master.text_speed]]//, ["Nudity", 1]];
 visuals[0][2] = function(){ input_vis = draw_toggle_check(visuals[0][1], 0); return input_vis };
 visuals[1][2] = function(){ input_vis = draw_toggle_check(visuals[1][1], 1); return input_vis };
 visuals[2][2] = function(){ input_vis = draw_toggle_count(visuals[2][1], 2); return input_vis };
-visuals[3][2] = function(){ input_vis = draw_toggle_check(visuals[3][1], 3); return input_vis };
+//visuals[3][2] = function(){ input_vis = draw_toggle_check(visuals[3][1], 3); return input_vis };
 #endregion
 
 #region //controls

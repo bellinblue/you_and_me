@@ -27,8 +27,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"spr_settings",
-    "path":"folders/Sprites/debug/spr_settings.yy",
+    "name":"settings",
+    "path":"folders/Sprites/debug/settings.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

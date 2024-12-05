@@ -9,17 +9,36 @@ if instance_exists(obj_parent_windows) {
 
 if keyboard_check_pressed(vk_f5) { 
 	if (window_get_fullscreen() == 1) {
-		window_set_fullscreen(0);
-		window_set_size(960, 540);
-	} else if (window_get_fullscreen() == 0) { window_set_fullscreen(1) };
+		if instance_exists(obj_settings) {
+			obj_settings.visuals[1][1] = 0;
+		} else { window_set_fullscreen(0) };
+	} else if (window_get_fullscreen() == 0) { 
+		if instance_exists(obj_settings) {
+			obj_settings.visuals[1][1] = 1; 
+		} else { 
+			window_set_fullscreen(1) 
+		};
+	};
+};
+
+if instance_exists(obj_settings) {
+	if obj_settings.visuals[1][1] { window_set_fullscreen(1) }
+	else if !obj_settings.visuals[1][1] { window_set_fullscreen(0) };
 };
 
 if menu_access {
-	if keyboard_check_pressed(vk_escape) { 
-		menu_access = 0;
-		instance_create_layer(-1, -1, "Instances_inv", obj_menu_phone);
+	if keyboard_check_pressed(vk_escape) {
+		if instance_exists(obj_puzzle_evidence){
+			if !obj_puzzle_evidence._evi_check {
+				menu_access = 0;
+				instance_create_layer(-1, -1, "Instances_inv", obj_menu_phone);	
+			};
+		} else {
+			menu_access = 0;
+			instance_create_layer(-1, -1, "Instances_inv", obj_menu_phone);	
+		};
 	};
-}
+};
 
 //DEBUG
 draw_set_font(fnt_debug);

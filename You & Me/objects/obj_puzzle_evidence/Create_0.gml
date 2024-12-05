@@ -1,9 +1,11 @@
 ques_string = "";
-ques_count = 0;
+ques_count = 0; 
 questions = [];
 answers = [];
 evidence = load_evidence();
 _is_selecting = -1;
+_check = -1;
+_display_string = "";
 
 #region //Sprite info for test and evidence windows
 wnd_t_spr = spr_puzzle_evidence_test_back;
@@ -55,5 +57,6 @@ evi_alpha = 1;
 evi_dir = 1;
 evi_cur = 0;
 ans_cur = 0;
+_evi_check = 0;
 
 depth = -999;

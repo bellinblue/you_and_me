@@ -26,8 +26,8 @@
   "nineSlice":null,
   "origin":1,
   "parent":{
-    "name":"debug",
-    "path":"folders/Sprites/debug.yy",
+    "name":"dialogue",
+    "path":"folders/Sprites/debug/dialogue.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

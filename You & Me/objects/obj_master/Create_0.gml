@@ -8,4 +8,6 @@ menu_access = 1;
 task_access = 1;
 coll_access = 1;
 
+gallery = load_gallery();
+print(gallery)
 depth = 0;
