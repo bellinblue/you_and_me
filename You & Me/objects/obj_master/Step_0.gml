@@ -7,7 +7,7 @@ if instance_exists(obj_parent_windows) {
 	} else if !instance_exists(obj_menu_phone) { menu_access = 1 };
 } else { coll_access = 1; task_access = 1; menu_access = 1 };
 
-if keyboard_check_pressed(vk_f5) { 
+if keyboard_check_pressed(vk_f4) { 
 	if (window_get_fullscreen() == 1) {
 		if instance_exists(obj_settings) {
 			obj_settings.visuals[1][1] = 0;
