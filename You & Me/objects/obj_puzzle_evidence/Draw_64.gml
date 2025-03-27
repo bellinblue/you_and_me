@@ -21,21 +21,20 @@ if _count < 1 {
 		if keyboard_check_pressed(vk_enter) {
 			for (var _comp = 0; _comp < array_length(answers); _comp++) {
 				if questions[_comp][1] == "mc" {
-					print(answers[_comp][0], " = ", questions[_comp][5], "\n", answers[_comp][1], " = ", questions[_comp][6], "\n");
 					if answers[_comp][0] != questions[_comp][5]	{ _check = 1; break };
 					if answers[_comp][1] != questions[_comp][6] { _check = 1; break };
 				} else {
-					print(answers[_comp][0], " = ", questions[_comp][2], "\n", answers[_comp][1], " = ", questions[_comp][3], "\n");
 					if answers[_comp][0] != questions[_comp][2]	{ _check = 1; break };
 					if answers[_comp][1] != questions[_comp][3] { _check = 1; break };
 				};
 			};
-			if _check != 1 { _check = 0 };
+			if _check != 1 { _check = 0; obj_master.puzzle_evidence_completed++ };
+			
 		};
 	};
 	
 	if _check > 0 { _display_string = "Incorrect." } 
-	else if _check == 0 { _display_string = "Correct!" }
+	else if _check == 0 { _display_string = "Correct!"}
 	else { _display_string = "Hit enter to check answer." };
 
 	draw_text(100, 975, _display_string);	
@@ -68,7 +67,6 @@ for (var _iii = 0; _iii < array_length(evidence); _iii++) {
 					} 
 					else { 
 						answers[_is_selecting][1] = evidence[evi_cur][0]
-						print(evidence[evi_cur][0])
 						for (var _a = 0; _a < array_length(answers); _a++) {
 							if answers[_is_selecting][1] == answers[_a][1] && _a != _is_selecting {
 								answers[_a][1] = undefined;
@@ -226,6 +224,42 @@ for (var _i = 0; _i < ques_count; _i++) {
 			if writing {
 				oe_inp_alpha = 0.25;
 				writing_string = string_copy(keyboard_string, 1, 40);
+				
+				var _cur_ind_base = string_length(writing_string);
+				_cur_ind_base += cursor_ind_adjust; 
+				var _last_wid = string_width(string_char_at(writing_string, _cur_ind_base));
+				var _next_wid = string_width(string_char_at(writing_string, _cur_ind_base+1));
+				
+				print(_last_wid);
+				var _first_check = string_width(string_char_at(writing_string, 1))
+				
+				if keyboard_check(vk_left) && !keyboard_check(vk_right) && _cur_ind_base != 0 { 
+					if alarm_get(2) <= 0 {
+						cursor_width_adjust -= _last_wid
+						cursor_ind_adjust -= 1;
+						if lcheck == 0 {
+							alarm_set(2, 20);
+						} else { alarm_set(2, 3) };
+					};
+				} else { lcheck = 0; alarm_set(2, 0) };
+				
+				if keyboard_check(vk_right) && !keyboard_check(vk_left) && _cur_ind_base != string_length(writing_string) { 
+					if alarm_get(3) <= 0 {
+						cursor_width_adjust += _next_wid; 
+						cursor_ind_adjust += 1;
+						if rcheck == 0 {
+							alarm_set(3, 20);
+						} else { alarm_set(3, 3) };
+					};
+				} else { rcheck = 0; alarm_set(3, 0) };
+				
+				if !keyboard_check(vk_anykey) {
+					if alarm_get(1) <= 0 { alarm_set(1, 30) };
+				} else { oe_type_alpha = 1; alarm_set(1, 30) };
+				
+				var _cursor_pos = _line_x + string_width(writing_string) + cursor_width_adjust-10;
+				draw_text_color(_cursor_pos, _line_y-oe_inp_hei, "|", c_black, c_black, c_black, c_black, oe_type_alpha);
+				
 			} else { 
 				oe_inp_alpha = 0.75;
 			};

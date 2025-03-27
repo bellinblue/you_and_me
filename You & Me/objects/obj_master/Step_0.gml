@@ -1,7 +1,7 @@
-if instance_exists(obj_parent_windows) {
+if instance_exists(obj_parent_windows) || !obj_scene_controller.is_freeroam {
 	coll_access = 0;
 	task_access = 0;
-	if instance_exists(obj_settings) || instance_exists(obj_title) { 
+	if instance_exists(obj_settings) || instance_exists(obj_messages) || instance_exists(obj_title) { 
 		menu_access = 0;
 		if instance_exists(obj_menu_phone) { instance_destroy(obj_menu_phone) };	
 	} else if !instance_exists(obj_menu_phone) { menu_access = 1 };

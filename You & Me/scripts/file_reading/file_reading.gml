@@ -1,33 +1,36 @@
+//function string_count_lines(_str) { //Counts all "\n"s and "\r"s in a string, returns integer
+//    var _newlines_count = string_count("\r", _str) + string_count("\n", _str) - string_count("\r\n", _str);
+	
+//    var _last_char = string_char_at(_str, string_length(_str));
+//    var _is_last_newline = _last_char == "\r" || _last_char == "\n";
+
+//    return _newlines_count - (_is_last_newline ? 1 : 0) + 1;
+//}
+
 function file_read_all_text(_filename) { //Returns a string of all document text
-    if (!file_exists(_filename)) {
-        return undefined;
-    }
-    
-    var _buff = buffer_load(_filename);
-    var _result = buffer_read(_buff, buffer_string);
-    buffer_delete(_buff);
-    return _result;
-}
-
-function string_count_lines(_str) { //Counts all "\n"s and "\r"s in a string, returns integer
-    var _newlines_count = string_count("\r", _str) + string_count("\n", _str) - string_count("\r\n", _str);
-    
-    var _last_char = string_char_at(_str, string_length(_str));
-    var _is_last_newline = _last_char == "\r" || _last_char == "\n";
-
-    return _newlines_count - (_is_last_newline ? 1 : 0) + 1;
-}
-
-function file_count_lines(_filename) { //Counts all lines in a file, returns integer
-    var _content = file_read_all_text(_filename);
-    
-    if (is_undefined(_content)) { return undefined; }
-    return string_count_lines(_content);
+    if (!file_exists(_filename)) { return undefined };
+	var _file = file_text_open_read(_filename);
+	var _result = "";
+	var _line_count = 0;
+	var _ret = [];
+	
+	while !file_text_eof(_file) {
+		_result += file_text_read_string(_file);
+		_result += "\n";
+		_line_count++;
+		file_text_readln(_file);
+	};
+	
+	file_text_close(_file);
+	
+	_ret = [_result, _line_count];
+	return _ret;
 }
 
 function file_count_flags(_directory, _item_name) { //Counts number of dialogue flags, returns integer
 	var _file = file_text_open_read(_directory);
-	var _line_count = file_count_lines(_directory);
+	
+	var _line_count = file_read_all_text(_directory)[1];
 	var _block = 0;
 	var _flag_count = 0;
 					
@@ -52,7 +55,7 @@ function file_count_flags(_directory, _item_name) { //Counts number of dialogue 
 
 function file_feed_string(_directory, _flag, _item_name, _is_dialogue) { //Sends file strings to dialogue box object
 		var _file = file_text_open_read(_directory);
-		var _line_count = file_count_lines(_directory);
+		var _line_count = file_read_all_text(_directory)[1];
 		var _c = 0;
 		var _block = 0;
 		var _read = 0;
@@ -104,42 +107,44 @@ function file_feed_string(_directory, _flag, _item_name, _is_dialogue) { //Sends
 				text[_i] = _send[_i];
 			};
 		};
-		if !instance_exists(obj_messagehistory){ instance_create_layer(-1, -1, "Instances_inv", obj_messagehistory) };
+		if !instance_exists(obj_messages){ instance_create_layer(-1, -1, "Instances_inv", obj_messages) };
 	};
 };
 
 function task_list_init() { //Reads task list files and sends to task object
-	var _dir = string("tasks\\{0}\\{1}.txt", obj_day.persp, string("day_{0}", obj_day.day));
+	var _dir = string("tasks\\{0}\\{1}.txt", obj_master.persp, string("day_{0}", obj_master.day));
 	var _file = file_text_open_read(_dir);
-	var _line_count = file_count_lines(_dir);
+	var _line_count = file_read_all_text(_dir)[1];
 	var _parts = [];
 	
 	for (var _i = 0; _i < _line_count; _i++) {
 		var _res = file_text_readln(_file);
 		_parts[_i] = string_split(_res, ",");
+		print(_parts[_i])
 	};
-	
+
+
 	file_text_close(_file);	
 	return _parts;
 };
 
 function file_read_block_day(_dir) {
 	var _file = file_text_open_read(_dir);
-	var _line_count = file_count_lines(_dir);
+	var _line_count = file_read_all_text(_dir)[1];
 	var _block = 0;
 	var _info = [];
 	
 	for (var _i = 0; _i < _line_count; _i++) {
 		var _res = file_text_readln(_file)
 		
-		if string_count(string("~{0}", obj_day.day+1), _res) == 1 { _block = 0; _i = _line_count; }
+		if string_count(string("~{0}", obj_master.day+1), _res) == 1 { _block = 0; _i = _line_count; }
 							
 		if _block {
 			_res = string_replace_all(_res, "\\n", "\n")
 			array_push(_info, _res);
 		}
 						
-		if string_count(string("~{0}", obj_day.day), _res) == 1 { _block = 1; }
+		if string_count(string("~{0}", obj_master.day), _res) == 1 { _block = 1; }
 		
 	};
 	
@@ -212,9 +217,9 @@ function puzzle_evidence() {
 	
 };
 
-function load_gallery(){
-	var _file = file_text_open_read(string("gallery\\gallery.txt"));
-	var _line_count = file_count_lines(string("gallery\\gallery.txt"));
+function load_gall_mus(_dir){
+	var _file = file_text_open_read(_dir);
+	var _line_count = file_read_all_text(_dir)[1];
 	var _info = [];
 	
 	for (var _i = 0; _i < _line_count; _i++) {
@@ -223,12 +228,30 @@ function load_gallery(){
 		array_push(_info, _res);	
 	};
 	
+	
+	
 	for (var _ii = 0; _ii < array_length(_info); _ii++) {
 		_info[_ii] = string_split(_info[_ii], ",");
 		_info[_ii][3] = int64(_info[_ii][3]);
-	}
-	
+	};
+
 	file_text_close(_file);
 	return _info;
+	
+};
+
+function replace_file_value(_directory, _filename, _line_id, _to_replace, _value){
+	var _file;
+	if _directory == -1 {
+		_file = file_text_open_read(string("{0}.txt", _filename));
+	} else { _file = file_text_open_read(string("{0}\\{1}.txt", _directory, _filename)) };
+	var _len = 0;
+	var _lines = [];
+
+	
+};
+
+function get_scene_data(_room){
+	
 	
 };

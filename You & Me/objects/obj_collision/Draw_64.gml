@@ -5,11 +5,9 @@ var _right = string_width(item_name_display) + _left;
 var _pmargin_x = 0;
 var _pmargin_y = 110;
 
-
 var _zone = view_wport-(view_wport/4);
 
 if obj_master.coll_access {
-	
 	if position_meeting(_mx, _my, self) {
 		
 		if _mx > _zone { _pmargin_x = -_right } else { _pmargin_x = _left };

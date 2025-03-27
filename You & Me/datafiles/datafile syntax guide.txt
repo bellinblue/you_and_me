@@ -1,0 +1,100 @@
+----------For Tasks----------
+Prerequisite in-game task name, required room, required action, in-game task name, is this task completed?
+Required action = Collision [rm_room_name_of_collision_box]
+		  Puzzle completion [puzzle_typehowmany]
+		  or Dialogue / Texts read [rm_room_checker-dialoguehowmanyflags] / [contact-messagehowmanyflags] 
+		     (Remember that flags start at 0!)
+
+(For the dialogue or text action, you MUST begin either parameter with the name of the collision instance OR the contact's name followed by a hyphen, its RESPECTIVE type of interaction, and the required amount of text flags that need to be reached before the game considers the task completed.)
+
+EXAMPLE:
+none,none,rm_debug_checker,Talk to Mr. Debug,0
+Talk to Mr. Debug,none,rm_debug_checker-dialogue3,Finish a Conversation with Mr. Debug,0
+Talk to Mr. Debug,none,puzzle_word1,Play the Word Puzzle,0
+
+
+
+----------For Dialogue----------
+rm_room_collision_box (Unique collision item name)
+~flagnum_spr_spritename (Flag number starting from 0, followed by the sprite for the sequence of dialogue.)
+Dialogue string 1. (Page one of dialogue sequence.)
+Dialogue string 2. (Two...)
+Dialogue string 3. (Three...)
+~flagnum+1_spr_spritename (Add another one of these flag lines with a flag count increased by 1 for another dialogue sequence.
+Dialogue string 1. (Page one of dialogue sequence.)
+rm_room_collision_boxEND (End of the entirety of the dialogue sequences.)
+
+(The dialogue can loop at a certain flag if needed by changing a collision instance's "flag_max" variable.)
+
+EXAMPLE:
+rm_debug_checker
+~0
+This dialogue is for testing purposes.
+~1
+Blah blah blah... Hmm... I am not sure what to say! 
+~2
+Here, I can test the speed of the text. It can be changed through the settings. 
+rm_debug_checkerEND
+
+
+
+----------For Evidence Puzzles----------
+~num (Marks beginning of evidence puzzle #n - 1 for script to read.)
+Select the correct answer, and click\nthe paperclip to select evidence. (Title of puzzle. \n can be use for line breaks.)
+n (Number of questions.)
+This is a boolean question,bool,1,evi_photo_2 (Question string, question type, the correct answer, and the correct evidence.)
+This is a multiple choice question,mc,Choice 1,Choice 2,Choice 3,1,evi_photo_3 (Same as above.)
+This is an open-ended question,oe,cool,evi_photo_1 (Same as above.)
+
+("bool" denotes a true or false question, and it automatically draws two TF boxes in-game. "mc" stands for "multiple choice," and the script automatically generates three slots for answers, no more no less. "oe" stands for "open-ended," which allows the player to type in whatever they want. Currently, at the time of this writing, it only checks against one answer, but will be expanded to accept a variety of similar/misspelled answers too.)
+
+EXAMPLE:
+
+
+
+----------For Evidence Inventory----------
+~num (Marks beginning of evidence available for evidence puzzle #n - 1.)
+evi_photo_1,Photo,spr_evi_item_a,1 (Photo name, photo string, photo sprite, does player have it?)
+evi_photo_2,Paper,spr_evi_item_b,1 (Same as above.)
+evi_photo_3,Drawing,spr_evi_item_c,1 (Same as above.)
+
+EXAMPLE:
+~0
+evi_photo_1,Dog Anatomy,spr_evi_item_a,1
+evi_photo_2,List of Mammals,spr_evi_item_b,1
+evi_photo_3,Danger Foods,spr_evi_item_c,1
+
+
+
+----------For Gallery----------
+gall_photo_item_name,Photo Name String,spr_gall_photo,1 (Photo name, photo string, photo sprite, does player have it?) 
+
+EXAMPLE:
+gall_photo_1,Photo 1,spr_gall_photo_1,1
+gall_photo_2,Photo 2,spr_gall_photo_2,0
+gall_photo_3,Photo 3,spr_gall_photo_3,1
+
+
+----------For Word Association Puzzles----------
+~num (Marks beginning of word puzzle #n - 1 for script to read.)
+n (Number of tiles to square.)
+Theme (Displays once puzzle is completed.)
+right1,right2,right3,right4,right5,right6 (Correct answers.) 
+wrong1,wrong2,wrong3,wrong4,wrong5,wrong6 (Incorrect answers.)
+
+(Game will randomize the order of the correct and incorrect answers. Both categories MUST equal half the total num of tiles if EVEN. Meanwhile, if ODD, the correct category will have half the num of tiles + 0.5 while the incorrect category will have half the num of tiles - 0.5.)
+
+EXAMPLE:
+~0
+4
+Fruits
+apple,banana,tomato,plum,orange,coconut,avocado,kiwi
+kitchen,knife,grass,doorway,fan,jacket,lacing,hands
+~1
+5
+german nine hundred and eighty five
+coffee,cheetos,chicken,lookatme,byeah,meatgrinder,lootget,shpee,lifeispain,gooddental,jebait,compact,gas
+tea,takis,turkey,dontlook,fffuckno,intact,brokie,shpoo,deathiswhimsical,badmedical,haralex,rotund (no "liquid" because it's odd!)
+
+
+

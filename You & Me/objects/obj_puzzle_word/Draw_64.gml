@@ -65,7 +65,7 @@ if array_length(compare) >= root*2 {
 	var _txt_x = 60;
 	draw_text_transformed(_txt_x, 100, "Hit enter to check", 0.75, 0.75, 0);
 	if keyboard_check_pressed(vk_enter) {
-		if array_contains_ext(compare, words[0], 1) { res = 1 } else { res = 0; }
+		if array_contains_ext(compare, words[0], 1) { res = 1; obj_master.puzzle_word_completed++} else { res = 0; }
 	};
 
 	if res == 0 { draw_text_transformed(_txt_x, 300, "These aren't\nthe correct answers!", 0.75, 0.75, 0) } 

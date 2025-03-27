@@ -43,9 +43,14 @@ oe_inp_hei = 70;
 oe_inp_alpha = 0.75;
 oe_buff_x = 50;
 oe_buff_y = 200;
+oe_type_alpha = 1;
+cursor_width_adjust = 0; 
+cursor_ind_adjust = 0;
 writing = 0;
 writing_string = "";
 save_string = "";
+lcheck = 0;
+rcheck = 0;
 #endregion
 
 evi_x = wnd_e_x - wnd_e_wid/2;

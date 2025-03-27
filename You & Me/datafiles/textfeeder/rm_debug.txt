@@ -55,3 +55,11 @@ Blah blah blah... Hmm... I am not sure what to say!
 ~2
 Here, I can test the speed of the text. It can be changed through the settings. 
 rm_debug_checkerEND
+rm_debug_checker_TWO
+~0
+Testinggggg
+~1
+Idk how this shit works dawg
+~2
+I HAVE TO SHIT
+rm_debug_checker_TWOEND

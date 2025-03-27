@@ -11,7 +11,8 @@ if obj_master.task_access {
 
 	for (var _i = 0; _i < array_length(tasks_active); _i++) {
 		draw_set_color(c_black)
-		draw_text(window_x - window_width + text_margin, window_y, string("- {0}", tasks_active[_i][3]))	
+		draw_text_transformed(window_x - window_width + text_margin, _i*(window_y+text_buffer),
+		string("- {0}", tasks_active[_i][3]), 0.75, 0.75, 0);	
 		draw_set_color(c_white)
 	};
 	

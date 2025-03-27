@@ -1,0 +1,3 @@
+song_1,Song 1,bgm_song_1,1
+song_2,Song 2,bgm_song_2,1
+song_3,Song 3,bgm_song_3,1

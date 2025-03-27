@@ -34,8 +34,8 @@ if !init {
 				_line_break_pos[_line_break_num[_i], _i] = _last_free_space;
 				_line_break_num[_i]++;
 				var _text_last_space = string_copy(text[_i], 1, _last_free_space);
-				var __last_free_space_string = string_char_at(text[_i], _last_free_space);
-				_line_break_offset[_i] = string_width(_text_last_space) - string_width(__last_free_space_string);
+				var _last_free_space_string = string_char_at(text[_i], _last_free_space);
+				_line_break_offset[_i] = string_width(_text_last_space) - string_width(_last_free_space_string);
 				
 			};
 			

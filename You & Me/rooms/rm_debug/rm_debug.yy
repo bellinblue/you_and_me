@@ -25,8 +25,8 @@
   ],
   "name":"rm_debug",
   "parent":{
-    "name":"Rooms",
-    "path":"folders/Rooms.yy",
+    "name":"meta",
+    "path":"folders/Rooms/meta.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

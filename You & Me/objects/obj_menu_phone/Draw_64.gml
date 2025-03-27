@@ -7,8 +7,13 @@ var _app = 0;
 	draw_set_color(c_white); draw_set_alpha(1);
 	draw_sprite(spr_phone_debug, -1, phone_x, phone_y);
 	
-	for (var _i = 0; _i < (ceil(array_length(apps)/3)); _i++) {
-		for (var _ii = 0; _ii < 3; _ii++) {
+	var _check = ceil(array_length(apps)/3);
+	for (var _i = 0; _i < _check; _i++) { //Rows
+		var _count = (array_length(apps)-_app);
+		
+		if _count > 3 { _count = 3 };
+		
+		for (var _ii = 0; _ii < _count; _ii++) { //Columns
 			var _x = app_x+(_ii*(app_width+app_margin_inner))
 			var _y = app_y+(_i*(app_height+app_margin_inner))
 			
@@ -17,14 +22,13 @@ var _app = 0;
 					_cur = _app;
 					app_alpha = 0.5 
 					draw_set_halign(fa_center);
-					draw_text(phone_x, phone_y+500, apps[_app][1]);
+					draw_text(phone_x, phone_y+text_buff_y, apps[_app][1]);
 					draw_set_halign(fa_left);
 					if mouse_check_button_pressed(mb_left) { _is_active = 1 };
 			
 				} else { app_alpha = 1 };
 				
-				
-				draw_sprite_ext(apps[_app][0], -1, _x, _y, 1, 1, 0, c_white, app_alpha);
+					draw_sprite_ext(apps[_app][0], -1, _x, _y, 1, 1, 0, c_white, app_alpha);
 				
 			};	
 					

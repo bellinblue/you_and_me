@@ -24,7 +24,7 @@ function draw_phone_gallery(){
 		_alpha_l = 0.75;
 		if mouse_check_button_pressed(mb_left) { 
 			if _cur_photo <= 0 {
-				obj_menu_phone._cur_photo = array_length(obj_master.gallery)-1;
+				obj_menu_phone._cur_photo = array_length(obj_master.gallery_available)-1;
 			} else { obj_menu_phone._cur_photo-- };
 		};
 	} else { _alpha_l = 1 };
@@ -33,7 +33,7 @@ function draw_phone_gallery(){
 	if point_in_rectangle(_mx, _my, _x_r - _arr_wid, _arr_y, _x_r, _arr_y+_arr_hei) { 
 		_alpha_r = 0.75 
 		if mouse_check_button_pressed(mb_left) { 
-			if _cur_photo >= array_length(obj_master.gallery)-1 {
+			if _cur_photo >= array_length(obj_master.gallery_available)-1 {
 				obj_menu_phone._cur_photo = 0;
 			} else { obj_menu_phone._cur_photo++ };
 		};
@@ -49,10 +49,22 @@ function draw_phone_gallery(){
 	
 	var _photo_x = room_width/2;
 	var _photo_y = room_height/2 - 25;
-	var _grabbed = obj_master.gallery[obj_menu_phone._cur_photo]
+	var _grabbed = obj_master.gallery_available[obj_menu_phone._cur_photo]
 	var _pho_hei = sprite_get_height(asset_get_index(_grabbed[2]));
 	draw_sprite(asset_get_index(_grabbed[2]), 0, _photo_x, _photo_y);	
 	draw_text(_photo_x-string_width(_grabbed[1])/2, _photo_y-_pho_hei/2-85, _grabbed[1]);
+	
+};
+
+function draw_phone_music(){
+	var _bck_spr = spr_music_background;
+	var _bck_wid = sprite_get_width(_bck_spr);
+	var _bck_hei = sprite_get_height(_bck_spr);
+	var _bck_x = 0;
+	var _bck_y = 0;
+	
+	
+	
 	
 };
 

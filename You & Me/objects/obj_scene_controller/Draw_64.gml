@@ -1,0 +1,1 @@
+//draw_sprite(bkgr_cur, -1, 0, 0);
