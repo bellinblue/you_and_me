@@ -5,5 +5,5 @@ if room == rm_debug {
 
 
 if keyboard_check_pressed(ord("H")) {
-	replace_file_value(-1,"gallerym","gall_photo_2",3,1)
+	replace_file_value(-1,"gallery_e","gall_photo_2",3,1)
 };	

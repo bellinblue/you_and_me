@@ -242,14 +242,36 @@ function replace_file_value(_directory, _filename, _line_id, _to_replace, _value
 	if _directory == -1 {
 		_file = file_text_open_read(string("{0}.txt", _filename));
 	} else { _file = file_text_open_read(string("{0}\\{1}.txt", _directory, _filename)) };
-	var _read = file_read_all_text(string("{0}.txt", _filename))[0]; 
+	var _read = file_read_all_text(string("{0}.txt", _filename)); 
 	var _cont = string_split(_read[0], "\n"); var _len = _read[1];
+	
+	for (var _i = 0; _i < _len-1; _i++) {
+		if string_count(_line_id, _cont[_i]) {
+			var _split = string_split(_cont[_i], ",");
+			_split[_to_replace] = _value;
+			var _to_add = "";
+			for (var _ii = 0; _ii < array_length(_split); _ii++) {
+				_to_add += string("{0},", _split[_ii]);		
+			};
+			_to_add = string_delete(_to_add, string_length(_to_add), 1);
+			_cont[_i] = _to_add;
+			
+			print(_cont[_i])
+			break;	
+		}
+	};
 	
 	print(_cont)
 	
-	for (var _i = 0; _i < _len; _i++) {
-		
-	};
+	file_text_close(_file);
+	if _directory == -1 {
+		_file = file_text_open_write(string("{0}.txt", _filename));
+	} else { _file = file_text_open_write(string("{0}\\{1}.txt", _directory, _filename)) };
+	
+	for (
+	
+	file_text_write_string()
+	
 	
 };
 
