@@ -13,15 +13,14 @@ puzzle_word_completed = 0;
 
 controllers = [];
 
-
-//gallery = load_gall_mus(string("gallery.txt"));
-//gallery_available = [];
-//for (var _i = 0; _i < array_length(gallery); _i++) {
-//	if gallery[_i][3] == 1 {
-//		array_push(gallery_available, gallery[_i]);	
-//	}
-//};
-////music = load_gall_mus("music");
+gallery = load_gall_mus(string("gallery_e.txt"));
+gallery_available = [];
+for (var _i = 0; _i < array_length(gallery); _i++) {
+	if gallery[_i][3] == 1 {
+		array_push(gallery_available, gallery[_i]);	
+	}
+};
+//music = load_gall_mus("music");
 
 day = 0;
 persp = "elijah";

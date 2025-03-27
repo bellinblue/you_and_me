@@ -7,7 +7,7 @@ phone_height = sprite_get_height(phone_sprite);
 _is_interactable = 1;
 apps = [[spr_app_gallery, "Gallery"], [spr_app_map, "Map"], [spr_app_music, "Music"], 
 [spr_app_settings, "Settings"], [spr_app_text, "Texts"], [spr_app_weather, "Weather"], [spr_app_to_title, "Return to Title"]];
-apps[0][2] = function(){ with obj_master{event_user(0)}; draw_phone_gallery(); };
+apps[0][2] = function(){ with obj_master{event_user(0)}; draw_phone_gallery() }; 
 apps[1][2] = function(){ load_app_TEMP() };
 apps[2][2] = function(){ draw_phone_music() };
 apps[3][2] = function(){ instance_create_layer(-1, -1, "Instances_inv", obj_settings) };

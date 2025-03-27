@@ -13,7 +13,7 @@ function file_read_all_text(_filename) { //Returns a string of all document text
 	var _result = "";
 	var _line_count = 0;
 	var _ret = [];
-	
+
 	while !file_text_eof(_file) {
 		_result += file_text_read_string(_file);
 		_result += "\n";
@@ -120,7 +120,6 @@ function task_list_init() { //Reads task list files and sends to task object
 	for (var _i = 0; _i < _line_count; _i++) {
 		var _res = file_text_readln(_file);
 		_parts[_i] = string_split(_res, ",");
-		print(_parts[_i])
 	};
 
 
@@ -228,8 +227,6 @@ function load_gall_mus(_dir){
 		array_push(_info, _res);	
 	};
 	
-	
-	
 	for (var _ii = 0; _ii < array_length(_info); _ii++) {
 		_info[_ii] = string_split(_info[_ii], ",");
 		_info[_ii][3] = int64(_info[_ii][3]);
@@ -245,9 +242,14 @@ function replace_file_value(_directory, _filename, _line_id, _to_replace, _value
 	if _directory == -1 {
 		_file = file_text_open_read(string("{0}.txt", _filename));
 	} else { _file = file_text_open_read(string("{0}\\{1}.txt", _directory, _filename)) };
-	var _len = 0;
-	var _lines = [];
-
+	var _read = file_read_all_text(string("{0}.txt", _filename))[0]; 
+	var _cont = string_split(_read[0], "\n"); var _len = _read[1];
+	
+	print(_cont)
+	
+	for (var _i = 0; _i < _len; _i++) {
+		
+	};
 	
 };
 
