@@ -24,6 +24,7 @@
     {"name":"debug","order":10,"path":"folders/Sprites/debug.yy",},
     {"name":"dialogue","order":21,"path":"folders/Sprites/debug/dialogue.yy",},
     {"name":"evidence","order":18,"path":"folders/Sprites/debug/evidence.yy",},
+    {"name":"backgrounds","order":24,"path":"folders/Sprites/debug/backgrounds.yy",},
     {"name":"messages","order":23,"path":"folders/Sprites/debug/messages.yy",},
     {"name":"phone","order":1,"path":"folders/Sprites/debug/messages/phone.yy",},
     {"name":"phone","order":7,"path":"folders/Sprites/debug/phone.yy",},

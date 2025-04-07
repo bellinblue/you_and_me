@@ -1,3 +1,0 @@
-none,none,rm_debug_checker,Talk to Mr. Debug,0
-Talk to Mr. Debug,none,rm_debug_checker-dialogue3,Finish a Conversation,0
-Finish a Conversation,none,puzzle_word1,Play the Word Puzzle,0

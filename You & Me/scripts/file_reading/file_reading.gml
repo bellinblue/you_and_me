@@ -1,12 +1,3 @@
-//function string_count_lines(_str) { //Counts all "\n"s and "\r"s in a string, returns integer
-//    var _newlines_count = string_count("\r", _str) + string_count("\n", _str) - string_count("\r\n", _str);
-	
-//    var _last_char = string_char_at(_str, string_length(_str));
-//    var _is_last_newline = _last_char == "\r" || _last_char == "\n";
-
-//    return _newlines_count - (_is_last_newline ? 1 : 0) + 1;
-//}
-
 function file_read_all_text(_filename) { //Returns a string of all document text
     if (!file_exists(_filename)) { return undefined };
 	var _file = file_text_open_read(_filename);
@@ -20,7 +11,7 @@ function file_read_all_text(_filename) { //Returns a string of all document text
 		_line_count++;
 		file_text_readln(_file);
 	};
-	
+		
 	file_text_close(_file);
 	
 	_ret = [_result, _line_count];
@@ -112,7 +103,7 @@ function file_feed_string(_directory, _flag, _item_name, _is_dialogue) { //Sends
 };
 
 function task_list_init() { //Reads task list files and sends to task object
-	var _dir = string("tasks\\{0}\\{1}.txt", obj_master.persp, string("day_{0}", obj_master.day));
+	var _dir = string("extracted\\tasks\\{0}\\{1}.txt", obj_master.persp, string("day_{0}", obj_master.day));
 	var _file = file_text_open_read(_dir);
 	var _line_count = file_read_all_text(_dir)[1];
 	var _parts = [];
@@ -173,7 +164,7 @@ function puzzle_word() { //Reads daily puzzle file, sends to object
 };
 
 function load_evidence(){
-	var _info = file_read_block_day(string("evidence\\evidence.txt"))
+	var _info = file_read_block_day("extracted\\evidence\\evidence.txt")
 	
 	for (var _ii = 0; _ii < array_length(_info); _ii++) {
 		_info[_ii] = string_split(_info[_ii], ",");
@@ -184,7 +175,7 @@ function load_evidence(){
 };
 
 function puzzle_evidence() {
-	var _info = file_read_block_day(string("questions\\questions.txt"))
+	var _info = file_read_block_day("questions\\questions.txt");
 	
 	_info[1] = int64(_info[1]);
 	var _temp = [];
@@ -237,14 +228,13 @@ function load_gall_mus(_dir){
 	
 };
 
-function replace_file_value(_directory, _filename, _line_id, _to_replace, _value){
-	var _file;
-	if _directory == -1 {
-		_file = file_text_open_read(string("{0}.txt", _filename));
-	} else { _file = file_text_open_read(string("{0}\\{1}.txt", _directory, _filename)) };
-	var _read = file_read_all_text(string("{0}.txt", _filename)); 
-	var _cont = string_split(_read[0], "\n"); var _len = _read[1];
+function replace_file_value(_filename, _line_id, _to_replace, _value){
+	var _file = file_text_open_read(_filename);
+	var _read = file_read_all_text( _filename); 
 	
+	var _cont = string_split(_read[0], "\n"); var _len = _read[1];
+	array_pop(_cont);
+
 	for (var _i = 0; _i < _len-1; _i++) {
 		if string_count(_line_id, _cont[_i]) {
 			var _split = string_split(_cont[_i], ",");
@@ -256,22 +246,20 @@ function replace_file_value(_directory, _filename, _line_id, _to_replace, _value
 			_to_add = string_delete(_to_add, string_length(_to_add), 1);
 			_cont[_i] = _to_add;
 			
-			print(_cont[_i])
 			break;	
 		}
 	};
 	
-	print(_cont)
+	file_text_close(_file);
+
+	_file = file_text_open_write(_filename)
+	
+	for (var _iii = 0; _iii < array_length(_cont); _iii++) {
+		file_text_write_string(_file, _cont[_iii]);
+		if _iii != array_length(_cont)-1 { file_text_writeln(_file) };
+	};	
 	
 	file_text_close(_file);
-	if _directory == -1 {
-		_file = file_text_open_write(string("{0}.txt", _filename));
-	} else { _file = file_text_open_write(string("{0}\\{1}.txt", _directory, _filename)) };
-	
-	for (
-	
-	file_text_write_string()
-	
 	
 };
 
