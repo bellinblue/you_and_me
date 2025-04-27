@@ -32,7 +32,7 @@ if obj_master.coll_access {
 					}
 				break;
 				case 1:
-					if !instance_exists(obj_messagebox){			
+					if !instance_exists(obj_messages){			
 						var _dir = string("textfeeder\\{0}.txt", room_get_name(room))
 						flag_max = file_count_flags(_dir, item_name);
 						if flag >= flag_max { flag = flag_max-1 }
@@ -41,9 +41,10 @@ if obj_master.coll_access {
 					}
 				break;
 				case 2:
-					room_goto(room_target);
+					obj_scene_controller.rmch = string_split(room_target, ".");
 					if instance_exists(obj_task) { obj_task.last_clicked = item_name };
 					obj_master.coll_access = 1;
+					with (obj_collision_arrow) { instance_destroy() };
 				break;
 			}
 		}

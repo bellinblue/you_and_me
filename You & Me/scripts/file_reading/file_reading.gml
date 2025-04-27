@@ -20,7 +20,6 @@ function file_read_all_text(_filename) { //Returns a string of all document text
 
 function file_count_flags(_directory, _item_name) { //Counts number of dialogue flags, returns integer
 	var _file = file_text_open_read(_directory);
-	
 	var _line_count = file_read_all_text(_directory)[1];
 	var _block = 0;
 	var _flag_count = 0;
@@ -263,7 +262,89 @@ function replace_file_value(_filename, _line_id, _to_replace, _value){
 	
 };
 
-function get_scene_data(_room){
+function get_scene_data(_day){
+	var _dir = "scenes.txt";
+	var _file = file_text_open_read(_dir);
+	var _line_count = file_read_all_text(_dir)[1];
+	var _info = [];
+	var _feed = "";
+	var _block = 0;
 	
+	for (var _i = 0; _i < _line_count; _i++) {
+		var _res = file_text_readln(_file)
+		
+		if string_count(string("~{0}", obj_master.day+1), _res) == 1 { _block = 0; _i = _line_count; }
+							
+		if _block {
+			_res = string_trim_end(_res)
+			array_push(_info, _res);
+		}
+						
+		if string_count(string("~{0}", obj_master.day), _res) == 1 { _block = 1; }
+		
+	};
+	
+	_block = 0;
+	
+	file_text_close(_file);
+	
+	for (var _ii = 0; _ii < array_length(_info); _ii++) {
+		if string_count(",", _info[_ii]) > 1 {
+			_info[_ii] = string_split(_info[_ii], ",")
+		
+			var _len = array_length(_info[_ii])-1;
+			if _len > 1 {
+				_info[_ii][_len] = int64(_info[_ii][_len]);	
+			};
+		} else { _feed = _info[_ii]; array_delete(_info, _ii, 1); _ii-- };
+		
+	};
+	
+	var _send = [_info, _feed];
+	return _send
+	
+};
+
+function get_collision_data_rmch(_location){
+	var _dirs = (string("collision_data_default\\room_change\\{0}.txt", _location));
+	
+		var _file = file_text_open_read(_dirs);
+		var _line_count = file_read_all_text(_dirs)[1];
+		var _info = [];
+		var _block = 0;
+		var _captured = "";
+	
+		for (var _ii = 0; _ii < _line_count; _ii++) {
+			var _res = file_text_readln(_file)
+		
+			if string_count("~", _res) == 1 && _captured != _res { _block = 0; _captured = "" };
+							
+			if _block {
+				_res = string_trim_end(_res);
+				array_push(_info, _res);
+			}
+						
+			if string_count("~", _res) == 1 && _captured == "" { 
+				_block = 1; _captured = _res;
+				_res = string_delete(_res,0,1); 
+				_info[_ii] = string_delete(_res,string_length(_res)-1,2);
+			};
+		};
+	
+		_block = 0;
+		file_text_close(_file);
+
+		var _send = [];
+		for (var _iii = 0; _iii < array_length(_info); _iii++) { 
+			
+			_info[_iii] = string_split(_info[_iii],",") 
+			for (var _intinn = 0; _intinn < array_length(_info[_iii]); _intinn++) {
+				if (string_digits(_info[_iii][_intinn]) == string(_info[_iii][_intinn])) {
+					_info[_iii][_intinn] = int64(_info[_iii][_intinn]) 
+				};
+			};
+		};
+	
+		return _info
 	
 };

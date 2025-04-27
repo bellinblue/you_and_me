@@ -67,7 +67,7 @@ evi_photo_3,Danger Foods,spr_evi_item_c,1
 
 
 ----------For Gallery----------
-gall_photo_item_name,Photo Name String,spr_gall_photo,1 (Photo name, photo string, photo sprite, does player have it?) 
+gall_photo_item_name,Photo Name String,spr_gall_photo,0or1 (does player have item?) 
 
 EXAMPLE:
 gall_photo_1,Photo 1,spr_gall_photo_1,1
@@ -94,7 +94,15 @@ kitchen,knife,grass,doorway,fan,jacket,lacing,hands
 5
 german nine hundred and eighty five
 coffee,cheetos,chicken,lookatme,byeah,meatgrinder,lootget,shpee,lifeispain,gooddental,jebait,compact,gas
-tea,takis,turkey,dontlook,fffuckno,intact,brokie,shpoo,deathiswhimsical,badmedical,haralex,rotund (no "liquid" because it's odd!)
+tea,takis,turkey,lookaway,bno,intact,theft,shpoo,deathiswhimsical,badmedical,haralex,rotund (no "liquid" because it's an odd count)
+
+----------For Scene Controller----------
+~day_num
+~textfeeder (optional)
+perspective,timeofday,location,room,0or1 (are player inputs disabled?)
+perspective,timeofday,location,room,0or1... (optional)
+~day_numEND
+
 
 
 

@@ -1,0 +1,12 @@
+~elijah_half_bath_utilities
+elijah_living_area.table_and_chair,900,830,3,3,0,Enter Hallway,0
+~elijah_living_area_table_and_chair
+elijah_half_bath.utilities,225,705,3,3,90,Exit Hallway,0
+elijah_living_area.tv_and_window,1760,705,3,3,270,To Computer,0
+elijah_living_area.toward_kitchen,960,930,3,3,0,Ascend Stairs,0
+~elijah_living_area_tv_and_window
+elijah_living_area.toward_kitchen,-1,-1,0,0,0,Walk Toward Kitchen,0
+elijah_living_area.table_and_chair,200,700,3,3,90,Enter Hallway,0
+elijah_living_area.kellen_door,-1,-1,0,0,0,Go to Kellen's Door,0
+~elijah_living_area_toward_kitchen
+elijah_living_area.table_and_chair,960,930,3,3,180,Descend Stairs,0

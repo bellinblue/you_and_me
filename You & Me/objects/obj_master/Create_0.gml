@@ -1,6 +1,7 @@
 window_set_size(960, 540);
 game_font = fnt_debug;
 draw_set_font(game_font);
+layer_background_visible(layer_background_get_id("Background_debug"), 0);
 
 if !directory_exists("extracted\\") {
 	var _ext = zip_unzip("inventory_data.zip", game_save_id + "extracted\\");

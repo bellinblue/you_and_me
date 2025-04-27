@@ -1,0 +1,7 @@
+~0
+~textfeeder
+eli,night,elijah_apartment,elijah_half_bath,utilities,1
+ror,night,rory_house,forgor,0
+~1
+eli,day,elijah_apartment,elijah_bedroom,bed,1
+ror,night,rory_house,forgor,0
