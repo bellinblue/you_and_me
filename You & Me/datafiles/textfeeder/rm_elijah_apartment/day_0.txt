@@ -1,0 +1,19 @@
+~elijah_apartment
+	~elijah_half_bath
+		~utilities
+			~char_debug_car
+				~0,spr_debug_car,Wise Cat
+				Meow meow! I am mr cat :3
+			~char_debug_carEND
+		~utilitiesEND
+	~elijah_half_bathEND
+	~elijah_living_area
+		~tv_and_window
+			~item_computer
+				~0,0
+				Im not sure how this works
+				blah blah
+			~item_computerEND
+		~tv_and_windowEND
+	~elijah_living_areaEND
+~elijah_apartmentEND

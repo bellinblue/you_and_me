@@ -97,7 +97,7 @@ draw_sprite(window_sprite, window_index, _window_x, _window_y);
 draw_set_alpha(0.6);
 draw_rectangle_color(_window_x - window_width/2, _window_y - 100, _window_x - window_width/2 + 400, _window_y - 10, c_black, c_black, c_black, c_black, 0);
 draw_set_alpha(1);
-draw_text(_window_x - window_width/2 + text_margin, _window_y - 100, "Mr Debug");
+draw_text(_window_x - window_width/2 + text_margin, _window_y - 100, char_name);
 
 for (var _c = 0; _c < draw_char; _c++) {
 	draw_text(char_x[_c, page], char_y[_c, page], char[_c, page]);	

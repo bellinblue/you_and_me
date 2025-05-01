@@ -1,4 +1,4 @@
-elijah = ["Hey", "What's up", "idk what to right", "write*", "i am going to Kill You", "ok", "i need more test dialogue", "i need to eat some food bruh", "IDGAFFFFF", "eat my ass", "blah", "1", "2"] // Dialogue, Name, Active, In Contacts List
+elijah = ["Hey", "What's up", "idk what to right", "write*", "i am going to Kill You", "ok", "i need more test dialogue", "i need to eat some food bruh", "IDGAFFFFF", "eat my ass", "blah"] // Dialogue, Name, Active, In Contacts List
 rory = ["This is a message", "this is another one", "blah blah blah"] 
 jonah = ["sup", "sup", "wsg", "nm hbu", "idk", "ts pmo"]
 evelyn = []

@@ -26,6 +26,7 @@ char[0] = "";
 char_x[0, 0] = "";
 char_y[0, 0] = "";
 draw_char = 0;
+char_name = "";
 
 feeder = "";
 init = 0;

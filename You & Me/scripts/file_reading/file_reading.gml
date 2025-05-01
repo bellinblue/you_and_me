@@ -47,54 +47,81 @@ function file_feed_string(_directory, _flag, _item_name, _is_dialogue) { //Sends
 		var _file = file_text_open_read(_directory);
 		var _line_count = file_read_all_text(_directory)[1];
 		var _c = 0;
+		var _block_prep = 0;
 		var _block = 0;
 		var _read = 0;
 		var _send = [];
 		var _flag_count = 0;
 		var _sprite_string;
-		var _sprite;
+		var _sprite;	
+		var _name;
 					
 		for (var _i = 0; _i < _line_count; _i++) {
 			var _res = file_text_readln(_file)
-											
-			if string_count(string("{0}END", _item_name), _res) == 1 { _block = 0; _i = _line_count; }
+			var _end_found = string_count(string("{0}END", _item_name), _res);
+			var _flag_end_found = string_count(string("~{0}", _flag+1), _res);
+			var _flag_beg_found = string_count(string("~{0}", _flag), _res);
+			var _item_found = string_count(_item_name, _res);
+			var _item_end_found = string_count(string("{0}END", _item_name), _res);
+			var _loc_true = string_count(string("~{0}", obj_scene_controller.loc_cur), _res)
+			var _rm_true = string_count(string("~{0}", obj_scene_controller.rm_cur), _res)
+			var _view_true = string_count(string("~{0}", obj_scene_controller.view_cur), _res)
+			var _loc_end = string_count(string("~{0}END", obj_scene_controller.loc_cur), _res)
+			var _rm_end = string_count(string("~{0}END", obj_scene_controller.rm_cur), _res)
+			var _view_end = string_count(string("~{0}END", obj_scene_controller.view_cur), _res)
+			
+			if _loc_true { _block_prep++ };
+			if _rm_true { _block_prep++ };
+			if _view_true { _block_prep++ };
+			
+			if _loc_end || _rm_end || _view_end { _block_prep-- };
+			
+			if _end_found { _block = 0; _block_prep = 0; _i = _line_count; }
 						
 			if _block {
 
-				if string_count(string("~{0}", _flag+1), _res) == 1 { _read = 0; _i = _line_count; } 
+				if _flag_end_found { _read = 0; _i = _line_count; } 
 				
 				if _read {
 					_res = string_replace_all(_res, "\\n", "\n");
+					_res = string_trim_start(_res);
 					_send[_c] = _res;
 					_c++;
 				};
 				
-				if string_count(string("~{0}", _flag), _res) == 1 { 
+				if _flag_beg_found { 
 					_read = 1; 
 					_res = string_replace_all(_res, "\\n", "\n");
-					_sprite_string = string_copy(_res, 4, string_length(_res)-5);
-					_sprite = asset_get_index(_sprite_string);
+					_res = string_trim(_res);
+					_sprite_string = string_split(_res, ",");
+					if _is_dialogue { 
+						_sprite = asset_get_index(_sprite_string[1]);
+						_name = _sprite_string[2];
+					};
+					if !_is_dialogue { 
+						_name = _sprite_string[1];	
+					};
 				};	
 			};			
-			if string_count(_item_name, _res) == 1 { _block = 1 };
+			if _item_found && _block_prep == 3 { _block = 1 };
 		};
-					
+				
+	_block_prep = 3;
 	_block = 0;
 	file_text_close(_file);	
 	
 	if _is_dialogue {
 		with instance_create_layer(0, 0, "Instances_inv", obj_dialoguebox) {
 			sprite_img = _sprite;
+			char_name = _name;
 			for (var _i = 0; _i < array_length(_send); _i++) {
 				text[_i] = _send[_i];
 			};
 		};
 	} else {
-		with instance_create_layer(0, 0, "Instances_inv", obj_messagebox) {
-			sprite_img = _sprite;
-			contact = "elijah";
+		with instance_create_layer(0, 0, "Instances_inv", obj_messages) {
 			for (var _i = 0; _i < array_length(_send); _i++) {
-				text[_i] = _send[_i];
+				array_push(contacts[_name][0], _send[_i]);
 			};
 		};
 		if !instance_exists(obj_messages){ instance_create_layer(-1, -1, "Instances_inv", obj_messages) };
@@ -305,8 +332,12 @@ function get_scene_data(_day){
 	
 };
 
-function get_collision_data_rmch(_location){
-	var _dirs = (string("collision_data_default\\room_change\\{0}.txt", _location));
+function get_collision_data(_location, _type){
+	var _type_string = "";
+	if _type == 0 { _type_string = "room_change" }
+	else if _type == 1 { _type_string = "items" };
+	
+	var _dirs = (string("collision_data_default\\{0}\\{1}.txt", _type_string, _location));
 	
 		var _file = file_text_open_read(_dirs);
 		var _line_count = file_read_all_text(_dirs)[1];

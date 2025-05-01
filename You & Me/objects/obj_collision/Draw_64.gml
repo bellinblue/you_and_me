@@ -24,7 +24,7 @@ if obj_master.coll_access {
 			switch result {
 				case 0:
 					if !instance_exists(obj_dialoguebox){			
-						var _dir = string("textfeeder\\{0}.txt", room_get_name(room))
+						var _dir = string("textfeeder\\{0}\\day_{1}.txt", room_get_name(room), obj_master.day)
 						flag_max = file_count_flags(_dir, item_name);
 						if flag >= flag_max { flag = flag_max-1 }
 						file_feed_string(_dir, flag, item_name, 1);
@@ -33,7 +33,7 @@ if obj_master.coll_access {
 				break;
 				case 1:
 					if !instance_exists(obj_messages){			
-						var _dir = string("textfeeder\\{0}.txt", room_get_name(room))
+						var _dir = string("textfeeder\\{0}\\day_{1}.txt", room_get_name(room), obj_master.day)
 						flag_max = file_count_flags(_dir, item_name);
 						if flag >= flag_max { flag = flag_max-1 }
 						file_feed_string(_dir, flag, item_name, 0);
@@ -44,7 +44,10 @@ if obj_master.coll_access {
 					obj_scene_controller.rmch = string_split(room_target, ".");
 					if instance_exists(obj_task) { obj_task.last_clicked = item_name };
 					obj_master.coll_access = 1;
-					with (obj_collision_arrow) { instance_destroy() };
+					with (obj_collision) { instance_destroy() };
+				break;
+				case 3:
+					puzzle_word();
 				break;
 			}
 		}

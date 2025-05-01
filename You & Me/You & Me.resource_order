@@ -100,6 +100,7 @@
     {"name":"spr_collision_arrow","order":2,"path":"sprites/spr_collision_arrow/spr_collision_arrow.yy",},
     {"name":"spr_collision_square","order":1,"path":"sprites/spr_collision_square/spr_collision_square.yy",},
     {"name":"spr_debug_bkgr","order":3,"path":"sprites/spr_debug_bkgr/spr_debug_bkgr.yy",},
+    {"name":"spr_debug_car","order":3,"path":"sprites/spr_debug_car/spr_debug_car.yy",},
     {"name":"spr_evi_item_b","order":1,"path":"sprites/spr_evi_item_b/spr_evi_item_b.yy",},
     {"name":"spr_evi_item_c","order":2,"path":"sprites/spr_evi_item_c/spr_evi_item_c.yy",},
     {"name":"spr_gall_photo_2","order":1,"path":"sprites/spr_gall_photo_2/spr_gall_photo_2.yy",},

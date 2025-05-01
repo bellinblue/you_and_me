@@ -1,0 +1,6 @@
+~elijah_half_bath_utilities
+char_debug_car,380,720,5,9,0,Wise Cat,0,2
+~elijah_living_area_tv_and_window
+item_computer,850,605,4.5,3.5,3,Go on Computer,1,2
+~elijah_living_area_toward_kitchen
+char_debug_sus_statue,990,385,8.5,9,-2.8,Sus Statue,3,2
