@@ -23,6 +23,6 @@ print(contacts)
 window_message_y = 0;
 targ = "";
 
-contact_message_y = 0; //make sure this matches the _conta_min variable
+contact_message_y = 0; 
 
 depth = -999
