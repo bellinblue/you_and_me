@@ -50,6 +50,7 @@ var _conta_t_mar;
 var _conta_text_x;
 var _conta_text_y;
 var _conta_len;
+var _conta_count;
 
 var _conta_scr;
 var _conta_max;
@@ -116,41 +117,57 @@ if _is_computer {
 	_conta_mar = 0;
 	_conta_alpha = 1;
 	_conta_t_mar = 0;
-	_conta_len = array_length(contacts)
-
-	_conta_scr = 100;
-	_conta_max = _conta_len;
-	_conta_min = -(_conta_len + _conta_hei);
-
-	draw_sprite(_spr_panel, -1, _panel_x, _panel_y);
-
-	if point_in_rectangle(_mx, _my, _panel_x, _panel_y, _panel_x+_panel_width, _panel_y+_panel_height) {
-		if _conta_len > 0 {
-			if mouse_wheel_up() {
-				if contact_message_y < _conta_max { contact_message_y+=_conta_scr };
-			};
-			if mouse_wheel_down() {
-				if contact_message_y > _conta_min { contact_message_y-=_conta_scr };	
-			};
-		};
-	} else {
-		if _mess_len > 0 {
-			if mouse_wheel_up() {
-				if window_message_y < _mess_max { window_message_y+=_mess_scr };
-			};
-			if mouse_wheel_down() {
-				if window_message_y > _mess_min { window_message_y-=_mess_scr };	
-			};	
+	_conta_len = array_length(contacts);
+	_conta_count = [];
+	var _check = 0;
+	for (var _c = 0; _c < _conta_len; _c++) {
+		if contacts[_c][3] = 1 { 
+			array_push(_conta_count,[contacts[_c][1],_check]);
+			_check++;
 		};
 	};
+
+	draw_sprite(_spr_panel, -1, _panel_x, _panel_y);
 	
 	contacts[contact][4] = window_message_y;
-	
 	for (var _ii = 0; _ii < _conta_len; _ii++){
 		if contacts[_ii][3] = 1 {
-			_conta_y = (_ii*(_conta_y_buff+_conta_hei)) + contact_message_y;
+			var _counter = 0;
+			for (var _iv = 0; _iv < array_length(_conta_count); _iv++) {
+				if _conta_count[_iv][0] = contacts[_ii][1] {
+					_counter = _conta_count[_iv][1];
+				};
+			};
+			_conta_y = (contact_message_y+_panel_y+_conta_y_buff) + (_counter*(_conta_y_buff+_conta_hei))
 			_conta_text_y = _conta_t_mar + _conta_y;
 			_conta_text_x = _conta_wid/2-35;
+			
+			_conta_scr = 100;
+			_conta_max = (array_length(_conta_count)*(_conta_hei+_conta_y_buff));
+			_conta_min = _panel_y+_conta_y_buff;
+				
+				print(_conta_min, " ", _conta_max);
+				print(contacts[_ii][5], ": ", _conta_y)
+				
+			if point_in_rectangle(_mx, _my, _panel_x, _panel_y, _panel_x+_panel_width, _panel_y+_panel_height) {
+				if _conta_len > 0 {
+					if mouse_wheel_up() {
+						if _conta_y < _conta_max { contact_message_y+=_conta_scr };
+					};
+					if mouse_wheel_down() {
+						if _conta_y > _conta_min { contact_message_y-=_conta_scr };	
+					};
+				};
+			} else {
+				if _mess_len > 0 {
+					if mouse_wheel_up() {
+						if window_message_y < _mess_max { window_message_y+=_mess_scr };
+					};
+					if mouse_wheel_down() {
+						if window_message_y > _mess_min { window_message_y-=_mess_scr };	
+					};	
+				};
+			};
 		
 			if point_in_rectangle(_mx, _my, _conta_x, _conta_y, _conta_x+_conta_wid, _conta_y+_conta_hei) {
 				_conta_alpha = 0.5;
@@ -164,7 +181,7 @@ if _is_computer {
 			} else if contacts[_ii][2] = 1 { _conta_alpha = 0.5 } else { _conta_alpha = 1 };
 	
 			draw_sprite_ext(_conta_spr, -1, _conta_x, _conta_y, 1, 1, 0, c_white, _conta_alpha);
-			draw_text(_conta_text_x, _conta_text_y, contacts[_ii][1]);
+			draw_text(_conta_text_x, _conta_text_y, contacts[_ii][5]);
 		};
 	};
 
@@ -174,7 +191,6 @@ if _is_computer {
 	
 } 
 else {
-
 	_spr_panel = spr_window_phonemsg_back_panel
 	_panel_width = sprite_get_width(_spr_panel);
 	_panel_height = sprite_get_height(_spr_panel);
@@ -234,10 +250,20 @@ else {
 	_conta_alpha = 1;
 	_conta_t_mar = 0;
 	_conta_len = array_length(contacts)
+	_conta_count = [];
+	var _check = 1;
+	for (var _c = 0; _c < _conta_len; _c++) {
+		if contacts[_c][3] = 1 { 
+			_check++;
+			array_push(_conta_count,[contacts[_c][1],_check]);
+		};
+	};
 
 	_conta_scr = 100;
-	_conta_max = _conta_len;
-	_conta_min = -(_conta_len + _conta_hei);
+	_conta_max = -((array_length(_conta_count)*(_conta_hei+_conta_y_buff)))+_panel_y;
+	_conta_min = -(_conta_hei+_conta_y_buff+_panel_y);
+
+	print(_conta_max, " ", _conta_min, " ", contact_message_y);
 
 	draw_sprite(_spr_panel, -1, _panel_x, _panel_y);
 
@@ -262,10 +288,15 @@ else {
 	};
 	
 	contacts[contact][4] = window_message_y;
-	
 	for (var _ii = 0; _ii < _conta_len; _ii++){
 		if contacts[_ii][3] = 1 {
-			_conta_y = (_ii*(_conta_y_buff+_conta_hei)) + contact_message_y;
+			var _counter = 0;
+			for (var _iv = 0; _iv < array_length(_conta_count); _iv++) {
+				if _conta_count[_iv][0] = contacts[_ii][1] {
+					_counter = _conta_count[_iv][1];
+				};
+			};
+			_conta_y = (_counter*(_conta_y_buff+_conta_hei)) + contact_message_y;
 			_conta_text_y = _conta_t_mar + _conta_y;
 			_conta_text_x = _conta_wid/2-35;
 		

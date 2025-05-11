@@ -3,8 +3,8 @@ game_font = fnt_debug;
 draw_set_font(game_font);
 layer_background_visible(layer_background_get_id("Background_debug"), 0);
 
-if !directory_exists("extracted\\") {
-	var _ext = zip_unzip("inventory_data.zip", game_save_id + "extracted\\");
+if !directory_exists("inventory_data_local\\") {
+	var _ext = zip_unzip("inventory_data.zip", game_save_id + "inventory_data_local\\" );
 }
 
 text_speed = 1;
@@ -17,7 +17,7 @@ puzzle_evidence_completed = 0;
 puzzle_word_completed = 0;
 
 controllers = [];
-gallery = load_gall_mus("extracted\\gallery.txt");
+gallery = load_gall_mus("inventory_data_local\\gallery.txt");
 gallery_available = [];
 for (var _i = 0; _i < array_length(gallery); _i++) {
 	if gallery[_i][3] == 1 {

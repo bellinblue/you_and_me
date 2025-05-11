@@ -6,8 +6,8 @@
   "name":"obj_parent_windows",
   "overriddenProperties":[],
   "parent":{
-    "name":"Windows",
-    "path":"folders/Objects/Windows.yy",
+    "name":"Overlord Ass Objects",
+    "path":"folders/Objects/Overlord Ass Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

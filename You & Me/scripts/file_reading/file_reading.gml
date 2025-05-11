@@ -129,7 +129,7 @@ function file_feed_string(_directory, _flag, _item_name, _is_dialogue) { //Sends
 };
 
 function task_list_init() { //Reads task list files and sends to task object
-	var _dir = string("extracted\\tasks\\{0}\\{1}.txt", obj_master.persp, string("day_{0}", obj_master.day));
+	var _dir = string("inventory_data_local\\tasks\\{0}\\{1}.txt", obj_master.persp, string("day_{0}", obj_master.day));
 	var _file = file_text_open_read(_dir);
 	var _line_count = file_read_all_text(_dir)[1];
 	var _parts = [];
@@ -190,7 +190,7 @@ function puzzle_word() { //Reads daily puzzle file, sends to object
 };
 
 function load_evidence(){
-	var _info = file_read_block_day("extracted\\evidence\\evidence.txt")
+	var _info = file_read_block_day("inventory_data_local\\evidence\\evidence.txt")
 	
 	for (var _ii = 0; _ii < array_length(_info); _ii++) {
 		_info[_ii] = string_split(_info[_ii], ",");
@@ -209,7 +209,6 @@ function puzzle_evidence() {
 		_info[_ii] = string_split(_info[_ii], ",");
 		array_push(_temp, _info[_ii]);
 	}
-	
 	
 	with instance_create_layer(0, 0, "Instances_inv", obj_puzzle_evidence) { 
 		ques_string = _info[0];
@@ -289,6 +288,32 @@ function replace_file_value(_filename, _line_id, _to_replace, _value){
 	
 };
 
+function get_contacts_data(){
+	var _dir = "inventory_data_local\\contacts.txt";
+	var _file = file_text_open_read(_dir);
+	var _line_count = file_read_all_text(_dir)[1];
+	var _info = [];
+	
+	for (var _i = 0; _i < _line_count; _i++) {
+		var _res = file_text_readln(_file)
+		_res = string_trim_end(_res)
+		array_push(_info, _res);
+	};
+	
+	
+	for (var _ii = 0; _ii < array_length(_info); _ii++) { 
+		_info[_ii] = string_split(_info[_ii],",") 
+		for (var _intinn = 0; _intinn < array_length(_info[_ii]); _intinn++) {
+			if (string_digits(_info[_ii][_intinn]) == string(_info[_ii][_intinn])) {
+				_info[_ii][_intinn] = int64(_info[_ii][_intinn]) 
+			};
+		};
+	};
+		
+	return _info
+	
+};
+
 function get_scene_data(_day){
 	var _dir = "scenes.txt";
 	var _file = file_text_open_read(_dir);
@@ -365,7 +390,6 @@ function get_collision_data(_location, _type){
 		_block = 0;
 		file_text_close(_file);
 
-		var _send = [];
 		for (var _iii = 0; _iii < array_length(_info); _iii++) { 
 			
 			_info[_iii] = string_split(_info[_iii],",") 

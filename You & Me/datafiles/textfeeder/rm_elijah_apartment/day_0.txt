@@ -3,7 +3,7 @@
 		~utilities
 			~char_debug_car
 				~0,spr_debug_car,Wise Cat
-				Meow meow! I am mr cat :3
+				Meow meow! I am mr cat :3 yayayayayay ayayayaya yayayayaya yayayayay
 			~char_debug_carEND
 		~utilitiesEND
 	~elijah_half_bathEND

@@ -1,0 +1,9 @@
+Elijah,0,0,0,Elijah
+Rory,1,1,0,Brandon
+Jonah,0,1,0,Jonah
+Evelyn,0,1,0,Evelyn
+Dawn,0,1,0,Dawn
+Trent,0,1,0,Trent
+Group,0,1,0,Group
+Jesse,0,0,0,Jesse
+Kellen,0,1,0,Kellen
